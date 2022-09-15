@@ -1,6 +1,6 @@
 import { Profil } from '../profil/profil.entity';
 import { Exclude } from 'class-transformer';
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -18,5 +18,6 @@ export class User {
   salt: string;
 
   @OneToOne((type) => Profil, (profil) => profil.user)
+  @JoinColumn()
   profil: Profil;
 }

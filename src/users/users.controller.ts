@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { UserSubscribeDto } from './user-subscribe.dto';
+import { LoginCredentialsDto } from './dto/login-credentials.dto';
+import { UserSubscribeDto } from './dto/user-subscribe.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -12,12 +13,10 @@ export class UsersController {
   }
 
   @Get('one')
-  getUser() {
-    console.log('un nouveau user');
-    return 'nouveau user';
+  getUser(@Body() id: number) {
+    return this.userService.find(id);
   }
 
-  //register
   @Post('register')
   register(@Body() userData: UserSubscribeDto) {
     return this.userService.register(userData);
@@ -28,12 +27,13 @@ export class UsersController {
     return this.userService.remove(id);
   }
 
-  //login
-  // @Post('login')
-  // login(@Body() credentials: LoginCredentialsDto) {
-  //     return this.userService.login(credentials);
-  // }
+  @Post('login')
+  login(@Body() credentials: LoginCredentialsDto) {
+    return this.userService.login(credentials);
+  }
 
+
+  //TODO
   // //editPassword
   // @Post('edit-password')
   // editPassword() {

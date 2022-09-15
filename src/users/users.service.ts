@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
-import { UserSubscribeDto } from './user-subscribe.dto';
+import { UserSubscribeDto } from './dto/user-subscribe.dto';
+import { LoginCredentialsDto } from './dto/login-credentials.dto';
 
 @Injectable()
 export class UsersService {
@@ -18,15 +19,14 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  findOne(id: number): Promise<User> {
-    return this.usersRepository.findOneBy({ id });
+  find(id: number): Promise<User> {
+    return this.usersRepository.findOne(id);
   }
 
   async remove(id: number): Promise<void> {
     await this.usersRepository.delete(id);
   }
 
-  // TODO: Register
   async register(userData: UserSubscribeDto): Promise<Partial<User>> {
     const user = this.usersRepository.create({
       ...userData,
@@ -37,8 +37,42 @@ export class UsersService {
     return {
       id: user.id,
       email: user.email,
-      // role: user.role
+      //TODO: add a role
     };
   }
+
   // TODO: Login
+  async login(credentials: LoginCredentialsDto) {
+
+    // Récupére le login et le mot de passe
+    const { email, password } = credentials;
+    // On peut se logger ou via le username ou le password
+    // Vérifier est ce qu'il y a un user avec ce login ou ce mdp
+    const user = await this.usersRepository.createQueryBuilder("user")
+      .where("user.email = :email",
+        { email }
+      )
+      .getOne();
+    // console.log(user);
+    // Si not user je déclenche une erreur
+
+    if (!user)
+      throw new NotFoundException('email ou password erronée');
+    // Si oui je vérifie est ce que le mot est correct ou pas
+    const hashedPassword = await bcrypt.hash(password, user.salt);
+    if (hashedPassword === user.password) {
+      const payload = {
+        email: user.email,
+      };
+      const jwt = await this.jwtService.sign(payload);
+      return {
+        "id": user.id,
+        "email": user.email,
+        "jwt": jwt
+      };
+    } else {
+      // Si mot de passe incorrect je déclenche une erreur
+      throw new NotFoundException('email ou password erronée');
+    }
+  }
 }
