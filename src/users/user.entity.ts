@@ -4,20 +4,19 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    email: string;
+  @Column()
+  email: string;
 
-    @Column()
-    password: string;
+  @Column()
+  password: string;
 
-    @Column()
-    @Exclude()
-    salt: string;
+  @Column()
+  @Exclude()
+  salt: string;
 
-    @OneToOne(type => Profil, profil => profil.user)
-    profil: Profil;
-
+  @OneToOne((type) => Profil, (profil) => profil.user)
+  profil: Profil;
 }
