@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProfilModule } from './modules/profil.module';
 import { UsersModule } from './modules/users.module';
+import { LevelModule } from './modules/level.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UsersModule } from './modules/users.module';
     }),
     UsersModule,
     ProfilModule,
+    LevelModule,
   ],
   controllers: [AppController],
   providers: [AppService],

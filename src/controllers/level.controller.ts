@@ -16,8 +16,8 @@ export class LevelController {
     return this.levelService.create();
   }
 
-  @Patch('edit')
-  updateLevel(@Body() level: Level, propertyPath: 'value', value: 1) {
-    return this.levelService.updateLevel(level, propertyPath, value);
-  }
+  // @Patch('update')
+  // updateLevel(@Body() id: number) {
+  //   return this.levelService.updateLevel(id);
+  // }
 }
