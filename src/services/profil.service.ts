@@ -23,9 +23,8 @@ export class ProfilService {
     await this.profilRepository.delete(id);
   }
 
-  async create(profilDto: AddProfilDto, user): Promise<Partial<Profil>> {
+  async create(profilDto: AddProfilDto): Promise<Partial<Profil>> {
     const profil = this.profilRepository.create({ ...profilDto });
-    profil.user = user;
     await this.profilRepository.save(profil);
     return profil;
   }

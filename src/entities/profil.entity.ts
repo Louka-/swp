@@ -1,5 +1,6 @@
 import { User } from './user.entity';
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Level } from './level.entity';
 
 @Entity()
 export class Profil {
@@ -24,7 +25,8 @@ export class Profil {
   @Column()
   phone: number;
 
-  @OneToOne((type) => User, (user) => user.profil)
+  @OneToOne((type) => Level)
   @JoinColumn()
-  user: User;
+  level: Level;
+
 }

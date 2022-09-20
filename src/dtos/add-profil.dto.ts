@@ -1,4 +1,5 @@
 import { IsDate, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
+import { Level } from "src/entities/level.entity";
 
 export class AddProfilDto {
 
@@ -30,5 +31,8 @@ export class AddProfilDto {
   @IsNumber()
   @IsNotEmpty()
   phone: number;
+
+  @IsNotEmpty()
+  level: Level;
 
 }

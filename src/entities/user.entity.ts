@@ -17,7 +17,7 @@ export class User {
   @Exclude()
   salt: string;
 
-  @OneToOne((type) => Profil, (profil) => profil.user)
+  @OneToOne((type) => Profil)
   @JoinColumn()
   profil: Profil;
 }
