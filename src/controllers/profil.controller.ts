@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import { User } from 'src/decorators/user.decorator';
-import { JwtAuthGuard } from 'src/users/guards/jwt-auth.guard';
-import { AddProfilDto } from './dto/add-profil.dto';
-import { ProfilService } from './profil.service';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { AddProfilDto } from '../dtos/add-profil.dto';
+import { ProfilService } from '../services/profil.service';
 
 @Controller('profil')
 export class ProfilController {

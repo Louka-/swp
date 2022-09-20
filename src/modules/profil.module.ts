@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Profil } from './profil.entity';
-import { ProfilService } from './profil.service';
-import { ProfilController } from './profil.controller';
-import { UsersModule } from 'src/users/users.module';
+import { Profil } from '../entities/profil.entity';
+import { ProfilService } from '../services/profil.service';
+import { ProfilController } from '../controllers/profil.controller';
+import { UsersModule } from 'src/modules/users.module';
 
 @Module({
   imports: [

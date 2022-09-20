@@ -3,8 +3,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProfilModule } from './profil/profil.module';
-import { UsersModule } from './users/users.module';
+import { ProfilModule } from './modules/profil.module';
+import { UsersModule } from './modules/users.module';
 
 @Module({
   imports: [

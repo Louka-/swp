@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersService } from './users.service';
-import { User } from './user.entity';
-import { UsersController } from './users.controller';
+import { UsersService } from '../services/users.service';
+import { User } from '../entities/user.entity';
+import { UsersController } from '../controllers/users.controller';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
-import { JwtStrategy } from './strategy/passport-jwt.strategy';
+import { JwtStrategy } from '../strategy/passport-jwt.strategy';
 import { ConfigModule } from '@nestjs/config';
 
 dotenv.config();
