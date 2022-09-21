@@ -1,6 +1,4 @@
-import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
-import { User } from 'src/decorators/user.decorator';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { AddProfilDto } from '../dtos/add-profil.dto';
 import { ProfilService } from '../services/profil.service';
 
@@ -13,24 +11,29 @@ export class ProfilController {
     return this.profilService.findAll();
   }
 
-  @Get('one')
-  getUser(@Body() id: number) {
+  @Get('one/:id')
+  getUser(
+    @Param('id', ParseIntPipe) id,
+  ) {
     return this.profilService.find(id);
   }
 
   @Post('create')
-  @UseGuards(JwtAuthGuard)
-  create(@Body() profilDto: AddProfilDto, @User() user) {
-    return this.profilService.create(profilDto, user);
+  create(@Body() profilDto: AddProfilDto) {
+    return this.profilService.create(profilDto);
   }
 
-  @Patch('edit')
-  edit(@Body() profilDto: AddProfilDto) {
-    return this.profilService.edit(profilDto);
+  @Patch('edit/:id')
+  edit(
+    @Param('id', ParseIntPipe) id,
+    @Body() profilDto: AddProfilDto) {
+    return this.profilService.edit(id, profilDto);
   }
 
-  @Post('delete')
-  delete(@Body() id: number) {
-    return this.profilService.remove(id);
+  @Post('delete/:id')
+  delete(
+    @Param('id', ParseIntPipe) id,
+  ) {
+    return this.profilService.delete(id);
   }
 }

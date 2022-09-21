@@ -1,33 +1,53 @@
-import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, UseGuards } from '@nestjs/common';
+import { User } from 'src/decorators/user.decorator';
 import { AddSaleDto } from 'src/dtos/add-sale.dto';
+import { Sale } from 'src/entities/sale.entity';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { SaleService } from 'src/services/sale.service';
 
 @Controller('sale')
 export class SaleController {
   constructor(private saleService: SaleService) { }
 
+  sales: Sale[];
   @Get('all')
-  getUsers() {
+  getSales() {
     return this.saleService.findAll();
   }
 
-  @Get('one')
-  getUser(@Body() id: number) {
+  @Get('allByUser')
+  @UseGuards(JwtAuthGuard)
+  getSalesByUser(
+    @User() user
+  ) {
+    return this.saleService.getSalesByUser(user);
+  }
+
+  @Get('one/:id')
+  getUser(@Param('id') id) {
     return this.saleService.find(id);
   }
 
   @Post('create')
-  create(@Body() saleDto: AddSaleDto) {
-    return this.saleService.create(saleDto);
+  @UseGuards(JwtAuthGuard)
+  create(
+    @Body() saleDto: AddSaleDto,
+    @User() user
+  ): Promise<Sale> {
+    return this.saleService.create(saleDto, user);
   }
 
-  @Patch('edit')
-  edit(@Body() saleDto: AddSaleDto) {
-    return this.saleService.edit(saleDto);
+  @Put('edit/:id')
+  edit(
+    @Param('id', ParseIntPipe) id,
+    @Body() saleDto: Partial<Sale>) {
+    return this.saleService.edit(id, saleDto);
   }
 
-  @Post('delete')
-  delete(@Body() id: number) {
+  @Post('delete/:id')
+  delete(
+    @Param('id', ParseIntPipe) id,
+  ) {
     return this.saleService.delete(id);
   }
 }
