@@ -19,7 +19,7 @@ export class ProfilService {
     return this.profilRepository.findOne(id);
   }
 
-  async remove(id: number): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.profilRepository.delete(id);
   }
 
@@ -29,8 +29,8 @@ export class ProfilService {
     return profil;
   }
 
-  async edit(profilDto: AddProfilDto): Promise<Partial<Profil>> {
-    const profil = this.profilRepository.save(profilDto);
+  async edit(id: number, profilDto: AddProfilDto) {
+    const profil = this.profilRepository.update(id, profilDto);
     return profil;
   }
 }

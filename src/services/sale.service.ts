@@ -23,14 +23,19 @@ export class SaleService {
     await this.saleRepository.delete(id);
   }
 
-  async create(saleDto: AddSaleDto): Promise<Partial<Sale>> {
-    const sale = this.saleRepository.create({ ...saleDto });
+  async create(saleDto: AddSaleDto, user): Promise<Sale> {
+    const sale = this.saleRepository.create(saleDto);
+    sale.user = user.id
     await this.saleRepository.save(sale);
     return sale;
   }
 
-  async edit(id: number, saleDto: AddSaleDto) {
+  async edit(id: number, saleDto: Partial<Sale>) {
     const sale = this.saleRepository.update(id, saleDto);
     return sale;
+  }
+
+  getSalesByUser(user): Promise<Sale[]> {
+    return this.saleRepository.find({ user: user.id });
   }
 }

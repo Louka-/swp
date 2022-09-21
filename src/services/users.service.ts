@@ -68,7 +68,7 @@ export class UsersService {
       return {
         "id": user.id,
         "email": user.email,
-        "jwt": jwt
+        "jwt": jwt,
       };
     } else {
       // Si mot de passe incorrect je déclenche une erreur
