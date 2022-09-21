@@ -26,7 +26,7 @@ export class AddProfilDto {
 
   @IsDate()
   @IsNotEmpty()
-  birthday: string;
+  birthday: Date;
 
   @IsNumber()
   @IsNotEmpty()

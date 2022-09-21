@@ -1,8 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Timestamp } from "src/generics/timestamp.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Profil } from "./profil.entity";
+import { User } from "./user.entity";
 
 @Entity()
-export class Sale {
+export class Sale extends Timestamp {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -14,9 +16,6 @@ export class Sale {
 
   @Column()
   message: string;
-
-  @Column()
-  createdAt: string;
 
   @Column()
   pictureOne: string;
@@ -33,7 +32,7 @@ export class Sale {
   @Column()
   shipping: boolean;
 
-  @ManyToOne(() => Profil, profil => profil.sale)
-  profil: Profil;
+  @ManyToOne(() => User, user => user.sales)
+  user: User;
 
 }

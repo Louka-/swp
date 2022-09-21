@@ -1,9 +1,11 @@
 import { Profil } from './profil.entity';
 import { Exclude } from 'class-transformer';
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Timestamp } from 'src/generics/timestamp.entity';
+import { Sale } from './sale.entity';
 
 @Entity()
-export class User {
+export class User extends Timestamp {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,4 +22,7 @@ export class User {
   @OneToOne((type) => Profil)
   @JoinColumn()
   profil: Profil;
+
+  @OneToMany((type) => Sale, sale => sale.user)
+  sales: Sale[];
 }

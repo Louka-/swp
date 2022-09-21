@@ -1,9 +1,11 @@
 import { User } from './user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Level } from './level.entity';
+import { Sale } from './sale.entity';
+import { Timestamp } from 'src/generics/timestamp.entity';
 
 @Entity()
-export class Profil {
+export class Profil extends Timestamp {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,7 +22,7 @@ export class Profil {
   picture: string;
 
   @Column()
-  birthday: string;
+  birthday: Date;
 
   @Column()
   phone: number;
