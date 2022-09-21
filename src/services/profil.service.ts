@@ -23,14 +23,36 @@ export class ProfilService {
     await this.profilRepository.delete(id);
   }
 
-  async create(profilDto: AddProfilDto): Promise<Partial<Profil>> {
-    const profil = this.profilRepository.create({ ...profilDto });
+  async create(profilDto: AddProfilDto): Promise<Profil> {
+    const profil = this.profilRepository.create(profilDto);
     await this.profilRepository.save(profil);
     return profil;
   }
 
-  async edit(id: number, profilDto: AddProfilDto) {
+  async editProfil(id: number, profilDto: AddProfilDto) {
     const profil = this.profilRepository.update(id, profilDto);
-    return profil;
+    return await profil;
   }
+
+  // public setEmptyProfilInUser(user: User): User {
+  //   const dateNow = new Date(Date.now()).toLocaleString();
+
+  //   const emptyModel = {
+  //     name: '',
+  //     race: 'Gost',
+  //     description: 'to be filled',
+  //     picture: "",
+  //     birthday: dateNow,
+  //     phone: null,
+  //     level: null,
+  //   };
+
+  //   const emptyProfil = this.profilRepository.create({
+  //     ...emptyModel,
+  //     user: user
+  //   });
+
+  //   user.profil = emptyProfil;
+  //   return user;
+  // }
 }

@@ -1,7 +1,6 @@
 import { User } from './user.entity';
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Level } from './level.entity';
-import { Sale } from './sale.entity';
 import { Timestamp } from 'src/generics/timestamp.entity';
 
 @Entity()
@@ -27,7 +26,13 @@ export class Profil extends Timestamp {
   @Column()
   phone: number;
 
-  @OneToOne((type) => Level)
+  @OneToOne(() => User, user => user.profil,
+    {
+      onDelete: 'CASCADE'
+    })
+  user: User;
+
+  @OneToOne(() => Level)
   @JoinColumn()
   level: Level;
 

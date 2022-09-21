@@ -6,12 +6,15 @@ import * as bcrypt from 'bcrypt';
 import { User } from '../entities/user.entity';
 import { LoginCredentialsDto } from '../dtos/login-credentials.dto';
 import { UserSubscribeDto } from 'src/dtos/user-subscribe.dto';
+import { ProfilService } from './profil.service';
+import { Profil } from 'src/entities/profil.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    private profilService: ProfilService,
     private jwtService: JwtService,
   ) { }
 
@@ -23,42 +26,58 @@ export class UsersService {
     return this.usersRepository.findOne(id);
   }
 
+  updateUser(user, profil) {
+    return this.usersRepository.update(profil, user);
+  }
+
   async remove(id: number): Promise<void> {
     await this.usersRepository.delete(id);
   }
 
   async register(userData: UserSubscribeDto): Promise<Partial<User>> {
-    const user = this.usersRepository.create({
-      ...userData,
-    });
+
+    const today = new Date(Date.now())
+
+    const user = this.usersRepository.create(userData);
     user.salt = await bcrypt.genSalt();
     user.password = await bcrypt.hash(user.password, user.salt);
+
+    const emptyModel = {
+      name: '',
+      race: 'Gost',
+      description: 'to be filled',
+      picture: "",
+      birthday: today,
+      phone: 1234567890,
+      level: null,
+    };
+
+    const emptyProfil = await this.profilService.create(emptyModel);
+
+    user.profil = emptyProfil;
+    user.createdAt = today
+
     await this.usersRepository.save(user);
     return {
       id: user.id,
       email: user.email,
+      profil: user.profil,
+      createdAt: user.createdAt,
       //TODO: add a role
     };
   }
 
-  // TODO: Login
   async login(credentials: LoginCredentialsDto) {
 
-    // Récupére le login et le mot de passe
     const { email, password } = credentials;
-    // On peut se logger ou via le username ou le password
-    // Vérifier est ce qu'il y a un user avec ce login ou ce mdp
     const user = await this.usersRepository.createQueryBuilder("user")
       .where("user.email = :email",
         { email }
       )
       .getOne();
-    // console.log(user);
-    // Si not user je déclenche une erreur
 
     if (!user)
       throw new NotFoundException('email ou password erronée');
-    // Si oui je vérifie est ce que le mot est correct ou pas
     const hashedPassword = await bcrypt.hash(password, user.salt);
     if (hashedPassword === user.password) {
       const payload = {
@@ -71,7 +90,6 @@ export class UsersService {
         "jwt": jwt,
       };
     } else {
-      // Si mot de passe incorrect je déclenche une erreur
       throw new NotFoundException('email ou password erronée');
     }
   }

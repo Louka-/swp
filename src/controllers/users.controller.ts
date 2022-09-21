@@ -20,7 +20,9 @@ export class UsersController {
   }
 
   @Post('register')
-  register(@Body() userData: UserSubscribeDto) {
+  register(
+    @Body() userData: UserSubscribeDto
+  ) {
     return this.userService.register(userData);
   }
 
@@ -32,7 +34,9 @@ export class UsersController {
   }
 
   @Post('login')
-  login(@Body() credentials: LoginCredentialsDto) {
+  login(
+    @Body() credentials: LoginCredentialsDto
+  ) {
     return this.userService.login(credentials);
   }
 

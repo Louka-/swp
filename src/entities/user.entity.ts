@@ -19,10 +19,13 @@ export class User extends Timestamp {
   @Exclude()
   salt: string;
 
-  @OneToOne((type) => Profil)
+  @OneToOne(() => Profil, profil => profil.user,
+    {
+      eager: true,
+    })
   @JoinColumn()
   profil: Profil;
 
-  @OneToMany((type) => Sale, sale => sale.user)
+  @OneToMany(() => Sale, sale => sale.user)
   sales: Sale[];
 }
