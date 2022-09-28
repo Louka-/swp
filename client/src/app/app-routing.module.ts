@@ -6,6 +6,8 @@ import { ConnexionComponent } from './connexion/connexion.component';
 const routes: Routes = [
   { path: 'connexion', component: ConnexionComponent },
   { path: 'all-sales', component: AllSalesComponent },
+  { path: 'create-sale', component: AllSalesComponent },
+  { path: 'profil', component: AllSalesComponent },
   //create-sale
   //profil
 ];

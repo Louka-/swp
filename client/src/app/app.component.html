@@ -1,1 +1,27 @@
-<router-outlet></router-outlet>
+<!-- <app-sidenav></app-sidenav> -->
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-icon-button *ngIf="authService.isAutheticated()">
+      <mat-icon (click)="sidenav.toggle();">menu</mat-icon>
+    </button>
+    <h1>StuffWayPoint</h1>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item href="/all-sales">Les annonces</a>
+      <a mat-list-item href="/create-sale">Poster une annonce</a>
+      <!-- <a mat-list-item href="/">Mes conversations</a> -->
+      <a mat-list-item href="/profil">Mon profil</a>
+      <a mat-list-item *ngIf="authService.isAutheticated()" (click)="logout()" class="nav-item">Se déconnecter</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+      <div class="main">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

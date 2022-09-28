@@ -17,17 +17,12 @@ export class AllSalesComponent implements OnInit {
 
   constructor(
     private salesService: SalesService,
-    public authService: AuthService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.sales = this.salesService.getAllSales();
   }
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['connexion']);
-  }
+
 
 }
