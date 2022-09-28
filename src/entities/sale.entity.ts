@@ -1,7 +1,6 @@
 import { Timestamp } from "src/generics/timestamp.entity";
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Profil } from "./profil.entity";
-import { User } from "./user.entity";
 
 @Entity()
 export class Sale extends Timestamp {
@@ -32,7 +31,11 @@ export class Sale extends Timestamp {
   @Column()
   shipping: boolean;
 
-  @ManyToOne(() => User, user => user.sales)
-  user: User;
+  @ManyToOne(() => Profil, profil => profil.sales,
+    {
+      onDelete: 'CASCADE',
+      cascade: true
+    })
+  profil: Profil;
 
 }

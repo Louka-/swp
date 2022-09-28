@@ -11,31 +11,30 @@ export class SaleService {
     private saleRepository: Repository<Sale>,
   ) { }
 
-  findAll(): Promise<Sale[]> {
-    return this.saleRepository.find();
+  async findAll(): Promise<Sale[]> {
+    return await this.saleRepository.find();
   }
 
-  find(id: number): Promise<Sale> {
-    return this.saleRepository.findOne(id);
+  async find(id: number): Promise<Sale> {
+    return await this.saleRepository.findOne(id);
   }
 
   async delete(id: number): Promise<void> {
     await this.saleRepository.delete(id);
   }
 
-  async create(saleDto: AddSaleDto, user): Promise<Sale> {
+  async create(saleDto: AddSaleDto): Promise<Sale> {
     const sale = this.saleRepository.create(saleDto);
-    sale.user = user.id
     await this.saleRepository.save(sale);
     return sale;
   }
 
-  async edit(id: number, saleDto: Partial<Sale>) {
+  edit(id: number, saleDto: Partial<Sale>) {
     const sale = this.saleRepository.update(id, saleDto);
     return sale;
   }
 
-  getSalesByUser(user): Promise<Sale[]> {
-    return this.saleRepository.find({ user: user.id });
+  async getSalesByUserProfil(user): Promise<Sale[]> {
+    return await this.saleRepository.find({ profil: user.profil });
   }
 }

@@ -20,7 +20,7 @@ export class SaleController {
   getSalesByUser(
     @User() user
   ) {
-    return this.saleService.getSalesByUser(user);
+    return this.saleService.getSalesByUserProfil(user);
   }
 
   @Get('one/:id')
@@ -29,12 +29,10 @@ export class SaleController {
   }
 
   @Post('create')
-  @UseGuards(JwtAuthGuard)
   create(
     @Body() saleDto: AddSaleDto,
-    @User() user
   ): Promise<Sale> {
-    return this.saleService.create(saleDto, user);
+    return this.saleService.create(saleDto);
   }
 
   @Put('edit/:id')
