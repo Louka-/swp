@@ -1,7 +1,8 @@
 import { User } from './user.entity';
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Level } from './level.entity';
 import { Timestamp } from 'src/generics/timestamp.entity';
+import { Sale } from './sale.entity';
 
 @Entity()
 export class Profil extends Timestamp {
@@ -28,9 +29,16 @@ export class Profil extends Timestamp {
 
   @OneToOne(() => User, user => user.profil,
     {
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      cascade: true
     })
   user: User;
+
+  @OneToMany(() => Sale, sale => sale.profil,
+    {
+      eager: true,
+    })
+  sales: Sale[];
 
   @OneToOne(() => Level)
   @JoinColumn()

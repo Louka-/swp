@@ -25,7 +25,4 @@ export class User extends Timestamp {
     })
   @JoinColumn()
   profil: Profil;
-
-  @OneToMany(() => Sale, sale => sale.user)
-  sales: Sale[];
 }

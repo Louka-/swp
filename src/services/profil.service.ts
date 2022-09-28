@@ -34,25 +34,4 @@ export class ProfilService {
     return await profil;
   }
 
-  // public setEmptyProfilInUser(user: User): User {
-  //   const dateNow = new Date(Date.now()).toLocaleString();
-
-  //   const emptyModel = {
-  //     name: '',
-  //     race: 'Gost',
-  //     description: 'to be filled',
-  //     picture: "",
-  //     birthday: dateNow,
-  //     phone: null,
-  //     level: null,
-  //   };
-
-  //   const emptyProfil = this.profilRepository.create({
-  //     ...emptyModel,
-  //     user: user
-  //   });
-
-  //   user.profil = emptyProfil;
-  //   return user;
-  // }
 }
