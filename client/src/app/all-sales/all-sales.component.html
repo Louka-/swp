@@ -1,0 +1,11 @@
+<div *ngIf="{
+  sales: sales | async
+}as data">
+  <div *ngFor="let sale of data.sales">
+    <span>{{sale.title}}</span><br>
+    <span>{{sale.message}}</span><br>
+    <span>{{sale.type}}</span><br>
+    <span>{{sale.price}}</span><br>
+  </div>
+  <button *ngIf="authService.isAutheticated()" (click)="logout()" class="nav-item">Logout</button>
+</div>

@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AllSalesComponent } from './all-sales/all-sales.component';
+import { ConnexionComponent } from './connexion/connexion.component';
 
 const routes: Routes = [
-  // { path: '', pathMatch: 'full', redirectTo: 'connexion' },
-  // { path: 'connexion', component: ConnexionComponent },
-  // { path: 'admin', component: AdminComponent }
+  { path: 'connexion', component: ConnexionComponent },
+  { path: 'all-sales', component: AllSalesComponent },
+  //create-sale
+  //profil
 ];
 
 @NgModule({
