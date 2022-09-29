@@ -22,7 +22,7 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  findUserByEmail(value: any): Observable<ValidationErrors | null> {
+  findUserByEmail(): Observable<ValidationErrors | null> {
     return new Observable<ValidationErrors | null>(
       (observer) => {
         setTimeout(

@@ -10,10 +10,14 @@ const API_SALES = 'http://localhost:3000/sale';
 export class SalesService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
   getAllSales(): Observable<Sale[]> {
     return this.http.get<Sale[]>(`${API_SALES}/all`);
+  }
+
+  postSale(dto: Sale): Observable<Sale> {
+    return this.http.post<Sale>(`${API_SALES}/create`, dto);
   }
 }
