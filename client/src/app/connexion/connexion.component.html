@@ -1,15 +1,25 @@
-<form #loginForm="ngForm">
-  email : <input type="text" class="form-control" [ngModel]="user.email" required email #emailInput="ngModel"
-    name="email">
-  <div *ngIf="emailInput.invalid && emailInput.touched" class="alert alert-danger">
-    Veuillez renseigner un email valid
+<div class="profil">
+  <form #loginForm="ngForm">
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput class="form-control" [ngModel]="user.email" required email #emailInput="ngModel"
+        name="email">
+    </mat-form-field> <br>
+    <div *ngIf="emailInput.invalid && emailInput.touched" class="alert">
+      Veuillez renseigner un email valid
+    </div>
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="password" matInput class="form-control" [ngModel]="user.password" required password
+        #passwordInput="ngModel" name="password">
+    </mat-form-field> <br>
+  </form>
+  <div class="button">
+    <button mat-raised-button (click)="login(loginForm)">
+      Se connecter
+    </button>
   </div>
-  password : <input type="password" required class="form-control" [ngModel]="user.password" minlength="4"
-    name="password">
-</form>
-<button [disabled]="loginForm.invalid" (click)="login(loginForm)" class="btn btn-primary">
-  Login
-</button>
-<div class="alert alert-danger" *ngIf="message.length">
-  {{message}}
+  <div class="alert alert-danger" *ngIf="message.length">
+    {{message}}
+  </div>
 </div>
