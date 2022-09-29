@@ -1,27 +1,47 @@
-<!-- <app-sidenav></app-sidenav> -->
-<mat-toolbar>
+<mat-toolbar class="toolbar">
   <mat-toolbar-row>
     <button mat-icon-button *ngIf="authService.isAutheticated()">
       <mat-icon (click)="sidenav.toggle();">menu</mat-icon>
     </button>
-    <h1>StuffWayPoint</h1>
+    <div class="row">
+      <h1>StuffWayPoint</h1>
+      <div class="image">
+        <img src="Fantasy-Dragon.png" [ngStyle]="{ 'height.px':45 }" alt="dragon">
+      </div>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
+<!-- TODO implement value with level.value in mat-progress-bar -->
+<!-- <mat-progress-bar mode="determinate" value="10"></mat-progress-bar> -->
 <mat-sidenav-container>
-  <mat-sidenav #sidenav>
+  <mat-sidenav #sidenav class="sidenav">
     <mat-nav-list>
-      <a mat-list-item href="/all-sales">Les annonces</a>
-      <a mat-list-item href="/create-sale">Poster une annonce</a>
+      <a mat-list-item href="/all-sales">
+        <mat-icon [ngStyle]="{ 'width.px':50 }">view_list</mat-icon>
+        Les annonces
+      </a>
+      <a mat-list-item href="/create-sale">
+        <mat-icon [ngStyle]="{ 'width.px':50 }">launch</mat-icon>
+        Poster une annonce
+      </a>
+      <a mat-list-item href="/user-sales">
+        <mat-icon [ngStyle]="{ 'width.px':50 }">speaker_notes</mat-icon>
+        Mes annonces
+      </a>
+      <a mat-list-item href="/edit-profil">
+        <mat-icon [ngStyle]="{ 'width.px':50 }">create</mat-icon>
+        Mon profil
+      </a>
       <!-- <a mat-list-item href="/">Mes conversations</a> -->
-      <a mat-list-item href="/profil">Mon profil</a>
-      <a mat-list-item *ngIf="authService.isAutheticated()" (click)="logout()" class="nav-item">Se déconnecter</a>
+      <a mat-list-item href="/connexion" (click)="logout()">
+        <mat-icon [ngStyle]="{ 'width.px':50 }">exit_to_app</mat-icon>
+        Se déconnecter
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="height: 88vh;">
-      <div class="main">
-        <router-outlet></router-outlet>
-      </div>
+    <div class="main">
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
