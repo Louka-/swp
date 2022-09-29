@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Sale } from '../models/sale.model';
 import { AuthService } from '../service/auth.service';
 import { SalesService } from '../service/sales.service';
@@ -20,7 +20,9 @@ export class AllSalesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sales = this.salesService.getAllSales();
+    this.sales = this.salesService.getAllSales().pipe(
+      map(sales => sales.reverse())
+    );
   }
 
 
