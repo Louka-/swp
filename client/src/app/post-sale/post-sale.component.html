@@ -1,0 +1,53 @@
+<!-- id: number;
+shipping: boolean; -->
+
+<div class="sale">
+  <form #saleForm="ngForm">
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Titre</mat-label>
+      <input type="text" matInput ngModel title #titleInput="ngModel" name="title">
+    </mat-form-field> <br>
+
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select ngModel type #typeInput="ngModel" name="type">
+        <!--TODO patch preselect race from profil -->
+        <mat-option *ngFor="let type of types" [value]="type.type">
+          {{type.type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> <br>
+
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Ajoutez une petite description</mat-label>
+      <textarea matInput ngModel message #messageInput="ngModel" name="message"></textarea>
+    </mat-form-field> <br>
+
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Photo 1</mat-label>
+      <input type="text" matInput ngModel pictureOne #pictureOneInput="ngModel" name="pictureOne">
+    </mat-form-field> <br>
+
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Photo 2</mat-label>
+      <input type="text" matInput ngModel pictureTwo #pictureTwoInput="ngModel" name="pictureTwo">
+    </mat-form-field> <br>
+
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Photo 3</mat-label>
+      <input type="text" matInput ngModel pictureThree #pictureThreeInput="ngModel" name="pictureThree">
+    </mat-form-field> <br>
+
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Prix</mat-label>
+      <input type="number" matInput ngModel price #priceInput="ngModel" name="price">
+    </mat-form-field> <br>
+
+    <mat-checkbox ngModel shipping #shippingInput="ngModel" name="shipping">Livraison possible</mat-checkbox> <br>
+
+    <div class="button">
+      <button mat-raised-button (click)="validate(saleForm)">Poster l'annonce</button>
+    </div>
+
+  </form>
+</div>
