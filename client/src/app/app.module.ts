@@ -23,7 +23,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { EditProfilComponent } from './edit-profil/edit-profil.component';
 import { PostSaleComponent } from './post-sale/post-sale.component';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     AllSalesComponent,
     EditProfilComponent,
     PostSaleComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     MatSelectModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    NgxMatFileInputModule,
     AngularSvgIconModule.forRoot()
   ],
   providers: [

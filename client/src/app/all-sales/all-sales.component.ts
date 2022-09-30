@@ -1,8 +1,6 @@
-import { Router } from '@angular/router';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Sale } from '../models/sale.model';
-import { AuthService } from '../service/auth.service';
 import { SalesService } from '../service/sales.service';
 
 @Component({
@@ -15,6 +13,21 @@ import { SalesService } from '../service/sales.service';
 export class AllSalesComponent implements OnInit {
   sales: Observable<Sale[]> | undefined;
 
+  images = [
+    {
+      imageSrc: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
+      imageAlt: 'test'
+    },
+    {
+      imageSrc: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+      imageAlt: 'test'
+    },
+    {
+      imageSrc: 'https://material.angular.io/assets/img/examples/shiba3.jpg',
+      imageAlt: 'test'
+    },
+  ];
+
   constructor(
     private salesService: SalesService,
   ) { }
@@ -24,7 +37,5 @@ export class AllSalesComponent implements OnInit {
       map(sales => sales.reverse())
     );
   }
-
-
 
 }
