@@ -10,12 +10,19 @@ import { AuthService } from './service/auth.service';
 export class AppComponent {
   constructor(
     public authService: AuthService,
-    private router: Router
 
   ) { }
 
   logout() {
     this.authService.logout();
+  }
+
+  scrollToTop() {
+    window.scrollTo({
+      left: 0,
+      top: 0,
+      behavior: "smooth",
+    })
   }
 
 }
