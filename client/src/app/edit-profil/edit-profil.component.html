@@ -4,47 +4,56 @@ sales: Sale[]; -->
 <div *ngIf="{
   profil: profil$ | async
 } as data" class="profil">
-  <form #profilForm="ngForm">
-    <mat-form-field class="width" appearance="fill">
-      <mat-label>Pseudo</mat-label>
-      <input type="text" matInput [ngModel]="data.profil?.name" name #nameInput="ngModel" name="name">
-    </mat-form-field> <br>
+  <div class="card">
+    <form #profilForm="ngForm">
+      <mat-form-field class="width" appearance="fill">
+        <mat-label>Avatar</mat-label>
+        <ngx-mat-file-input matInput [ngModel]="data.profil?.picture" picture #pictureInput="ngModel" name="picture">
+        </ngx-mat-file-input>
+      </mat-form-field> <br>
+      <img mat-card-avatar src="" alt="test"> <br>
 
-    <mat-form-field class="width" appearance="fill">
-      <mat-label>Ajoutez une petite description</mat-label>
-      <textarea matInput [ngModel]="data.profil?.description" description #descriptionInput="ngModel"
-        name="description"></textarea>
-    </mat-form-field> <br>
+      <mat-form-field class="width" appearance="fill">
+        <mat-label>Pseudo</mat-label>
+        <input type="text" matInput [ngModel]="data.profil?.name" name #nameInput="ngModel" name="name">
+      </mat-form-field> <br>
 
-    <mat-form-field class="width" appearance="fill">
-      <mat-label>Téléphone</mat-label>
-      <!-- TODO fix other character then number -->
-      <input type="tel" maxlength="10" matInput [ngModel]="data.profil?.phone" phone #phoneInput="ngModel" name="phone">
-    </mat-form-field> <br>
+      <mat-form-field class="width" appearance="fill">
+        <mat-label>Ajoutez une petite description</mat-label>
+        <textarea matInput [ngModel]="data.profil?.description" description #descriptionInput="ngModel"
+          name="description"></textarea>
+      </mat-form-field> <br>
 
-    <mat-form-field class="width" appearance="fill">
-      <mat-label>Race</mat-label>
-      <mat-select ngModel race #raceInput="ngModel" name="race" [value]="data.profil?.race">
-        <!--TODO patch preselect race from profil -->
-        <mat-option *ngFor="let race of races" [value]="race.value">
-          {{race.value}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> <br>
+      <mat-form-field class="width" appearance="fill">
+        <mat-label>Téléphone</mat-label>
+        <!-- TODO fix other character then number -->
+        <input type="tel" maxlength="10" matInput [ngModel]="data.profil?.phone" phone #phoneInput="ngModel"
+          name="phone">
+      </mat-form-field> <br>
 
-    <mat-form-field class="width" appearance="fill">
-      <mat-label>Anniversaire</mat-label>
-      <!--TODO patch date format -->
-      <input matInput [matDatepicker]="picker" [ngModel]="data.profil?.birthday" birthday #birthdayInput="ngModel"
-        name="birthday">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field> <br>
-  </form>
+      <mat-form-field class="width" appearance="fill">
+        <mat-label>Race</mat-label>
+        <mat-select ngModel race #raceInput="ngModel" name="race" [value]="data.profil?.race">
+          <mat-option *ngFor="let race of races" [value]="race.value">
+            {{race.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> <br>
 
-  <div class="button">
-    <button mat-raised-button (click)="validate(profilForm)">Enregistrer</button>
+      <mat-form-field class="width" appearance="fill">
+        <mat-label>Anniversaire</mat-label>
+        <!--TODO patch date format -->
+        <input matInput [matDatepicker]="picker" [ngModel]="data.profil?.birthday" birthday #birthdayInput="ngModel"
+          name="birthday">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> <br>
+    </form>
+
+    <div class="button">
+      <button mat-raised-button (click)="validate(profilForm)">Enregistrer</button>
+    </div>
   </div>
 
 </div>
