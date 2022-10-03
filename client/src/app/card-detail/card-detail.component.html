@@ -1,0 +1,24 @@
+<div class="button">
+  <button mat-raised-button (click)="toggleDetail()">{{!showDetail ? 'Plus d\'information' : 'Réduire'}}</button>
+</div>
+<div *ngIf="showDetail" class="pt-20">
+  <app-carousel [images]="images"></app-carousel>
+
+  <div class="pt-20">
+    <div class="row">
+      <h2>Détail</h2>
+    </div>
+    <div class="row">
+      <div class="center-text">Prix: {{sale?.price}} €</div>
+    </div>
+    <div class="row">
+      <div class="center-text">Téléphone: {{profil?.phone}}</div>
+    </div>
+    <div class="row">
+      <div class="center-text">Livraison possible: {{sale?.shipping ? 'oui' : 'non'}}
+      </div>
+    </div>
+
+
+  </div>
+</div>

@@ -26,6 +26,7 @@ import { PostSaleComponent } from './post-sale/post-sale.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CarouselComponent } from './carousel/carousel.component';
+import { CardDetailComponent } from './card-detail/card-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CarouselComponent } from './carousel/carousel.component';
     AllSalesComponent,
     EditProfilComponent,
     PostSaleComponent,
-    CarouselComponent
+    CarouselComponent,
+    CardDetailComponent
   ],
   imports: [
     BrowserModule,
