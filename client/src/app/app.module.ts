@@ -27,6 +27,9 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CardDetailComponent } from './card-detail/card-detail.component';
+import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
+import { HomepageComponent } from './homepage/homepage.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { CardDetailComponent } from './card-detail/card-detail.component';
     EditProfilComponent,
     PostSaleComponent,
     CarouselComponent,
-    CardDetailComponent
+    CardDetailComponent,
+    HomepageComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -59,11 +64,13 @@ import { CardDetailComponent } from './card-detail/card-detail.component';
     MatCheckboxModule,
     MatProgressBarModule,
     NgxMatFileInputModule,
-    AngularSvgIconModule.forRoot()
+    AngularSvgIconModule.forRoot(),
   ],
   providers: [
     MatDatepickerModule,
     MatNativeDateModule,
+    JwtHelperService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
   ],
   bootstrap: [AppComponent]
 })

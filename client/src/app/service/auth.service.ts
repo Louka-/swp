@@ -3,23 +3,34 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 
-const API_LOGIN = 'http://localhost:3000/users/login';
+const API_LOGIN = 'http://localhost:3000/users';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
+
   login(credentials: any): Observable<any> {
-    return this.http.post(API_LOGIN, credentials);
+    return this.http.post(`${API_LOGIN}/login`, credentials);
   }
+
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('jwt');
   }
+
+  register(credentials: any): Observable<any> {
+    return this.http.post(`${API_LOGIN}/register`, credentials);
+  }
+
   isAutheticated() {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('jwt');
+  }
+
+  getCurrentUserId() {
+    return Number(localStorage.getItem('userId'));
   }
 
   findUserByEmail(): Observable<ValidationErrors | null> {
