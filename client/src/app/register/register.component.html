@@ -1,21 +1,19 @@
-<div class="connexion">
-  <form #loginForm="ngForm">
+<div class="register">
+  <form #registerForm="ngForm">
     <mat-form-field class="width" appearance="fill">
       <mat-label>Email</mat-label>
-      <input type="email" matInput class="form-control" [ngModel]="user.email" required email #emailInput="ngModel"
-        name="email">
+      <input type="email" matInput ngModel email #emailInput="ngModel" name="email">
     </mat-form-field> <br>
     <div *ngIf="emailInput.invalid && emailInput.touched" class="alert">
       Veuillez renseigner un email valid
     </div>
     <mat-form-field class="width" appearance="fill">
       <mat-label>Mot de passe</mat-label>
-      <input type="password" matInput class="form-control" [ngModel]="user.password" required password
-        #passwordInput="ngModel" name="password">
+      <input type="password" matInput ngModel password #passwordInput="ngModel" name="password">
     </mat-form-field> <br>
     <div class="button">
-      <button mat-raised-button (click)="login(loginForm)">
-        Se connecter
+      <button mat-raised-button (click)="register(registerForm)">
+        Inscription
       </button>
     </div>
   </form>
