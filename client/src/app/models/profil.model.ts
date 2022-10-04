@@ -8,6 +8,7 @@ export interface Profil {
   picture: string;
   birthday: Date;
   phone: number;
+  city: string;
   sales: Sale[];
   // level: Level;
 }

@@ -1,3 +1,5 @@
+import { Profil } from "./profil.model";
+
 export interface Sale {
   id: number;
   title: string;
@@ -8,6 +10,7 @@ export interface Sale {
   pictureThree: string;
   price: number;
   shipping: boolean;
-  // profil: Profil;
+  createdAt: Date;
+  //profilId: number
 
 }
