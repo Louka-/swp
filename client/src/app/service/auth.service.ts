@@ -29,7 +29,7 @@ export class AuthService {
     return !!localStorage.getItem('jwt');
   }
 
-  getCurrentUserId() {
+  getCurrentUserId(): number {
     return Number(localStorage.getItem('userId'));
   }
 

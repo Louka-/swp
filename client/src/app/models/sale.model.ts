@@ -11,6 +11,6 @@ export interface Sale {
   price: number;
   shipping: boolean;
   createdAt: Date;
-  //profilId: number
+  profilId: number;
 
 }

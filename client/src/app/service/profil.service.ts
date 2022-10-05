@@ -20,6 +20,10 @@ export class ProfilService {
     return this.http.get<Profil>(`${API_PROFIL}/one/${id}`);
   }
 
+  getAllUsersProfil(): Observable<Profil[]> {
+    return this.http.get<Profil[]>(`${API_PROFIL}/all`);
+  }
+
   saveNewProfil(id: number, dto: AddProfilDto): Observable<Profil> {
     return this.http.put<Profil>(`${API_PROFIL}/edit/${id}`, dto);
   }
