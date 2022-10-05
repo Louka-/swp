@@ -31,6 +31,9 @@ export class Sale extends Timestamp {
   @Column()
   shipping: boolean;
 
+  @Column()
+  profilId: number;
+
   @ManyToOne(() => Profil, profil => profil.sales,
     {
       onDelete: 'CASCADE',

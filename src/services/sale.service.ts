@@ -34,7 +34,7 @@ export class SaleService {
     return sale;
   }
 
-  async getSalesByUserProfil(user): Promise<Sale[]> {
-    return await this.saleRepository.find({ profil: user.profil });
+  async getSalesByUserProfil(id): Promise<Sale[]> {
+    return await this.saleRepository.find({ profilId: id });
   }
 }

@@ -1,8 +1,6 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, UseGuards } from '@nestjs/common';
-import { User } from 'src/decorators/user.decorator';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { AddSaleDto } from 'src/dtos/add-sale.dto';
 import { Sale } from 'src/entities/sale.entity';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { SaleService } from 'src/services/sale.service';
 
 @Controller('sale')
@@ -15,12 +13,11 @@ export class SaleController {
     return this.saleService.findAll();
   }
 
-  @Get('allByUser')
-  @UseGuards(JwtAuthGuard)
+  @Get('allByUser/:id')
   getSalesByUser(
-    @User() user
+    @Param('id') id
   ) {
-    return this.saleService.getSalesByUserProfil(user);
+    return this.saleService.getSalesByUserProfil(id);
   }
 
   @Get('one/:id')
@@ -42,7 +39,7 @@ export class SaleController {
     return this.saleService.edit(id, saleDto);
   }
 
-  @Post('delete/:id')
+  @Delete('delete/:id')
   delete(
     @Param('id', ParseIntPipe) id,
   ) {
