@@ -23,8 +23,9 @@ export class SaleService {
     await this.saleRepository.delete(id);
   }
 
-  async create(saleDto: AddSaleDto): Promise<Sale> {
+  async create(saleDto: AddSaleDto, profilId: number): Promise<Sale> {
     const sale = this.saleRepository.create(saleDto);
+    sale.profilId = profilId;
     await this.saleRepository.save(sale);
     return sale;
   }

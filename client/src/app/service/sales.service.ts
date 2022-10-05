@@ -21,8 +21,8 @@ export class SalesService {
     return this.http.get<Sale[]>(`${API_SALES}/allByUser/${id}`);
   }
 
-  postSale(dto: Sale): Observable<Sale> {
-    return this.http.post<Sale>(`${API_SALES}/create`, dto);
+  postSale(dto: Sale, profilId: number): Observable<Sale> {
+    return this.http.post<Sale>(`${API_SALES}/create/${profilId}`, dto);
   }
 
   editSale(id: number, dto: Sale): Observable<Sale> {

@@ -25,11 +25,12 @@ export class SaleController {
     return this.saleService.find(id);
   }
 
-  @Post('create')
+  @Post('create/:id')
   create(
     @Body() saleDto: AddSaleDto,
+    @Param('id', ParseIntPipe) id,
   ): Promise<Sale> {
-    return this.saleService.create(saleDto);
+    return this.saleService.create(saleDto, id);
   }
 
   @Put('edit/:id')

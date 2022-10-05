@@ -1,14 +1,18 @@
 import { NgForm } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SalesService } from '../service/sales.service';
 import { Router } from '@angular/router';
+import { UserService } from '../service/user.service';
+import { AuthService } from '../service/auth.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-post-sale',
   templateUrl: './post-sale.component.html',
   styleUrls: ['./post-sale.component.sass']
 })
-export class PostSaleComponent implements OnInit {
+export class PostSaleComponent {
+
   types = [
     { type: "armure" },
     { type: "arme" },
@@ -18,14 +22,15 @@ export class PostSaleComponent implements OnInit {
 
   constructor(
     private saleService: SalesService,
+    private userService: UserService,
+    private auth: AuthService,
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-  }
-
   validate(form: NgForm) {
-    this.saleService.postSale(form.value).subscribe();
+    this.userService.getUserById(this.auth.getCurrentUserId()).pipe(
+      switchMap(user => this.saleService.postSale(form.value, user.profil.id))
+    ).subscribe();
     this.router.navigate(['all-sales']);
   }
 

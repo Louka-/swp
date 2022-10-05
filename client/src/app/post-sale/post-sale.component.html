@@ -1,6 +1,3 @@
-<!-- id: number;
-shipping: boolean; -->
-
 <div class="sale">
   <form #saleForm="ngForm">
     <mat-form-field class="width" appearance="fill">
@@ -11,7 +8,6 @@ shipping: boolean; -->
     <mat-form-field class="width" appearance="fill">
       <mat-label>Type</mat-label>
       <mat-select ngModel type #typeInput="ngModel" name="type">
-        <!--TODO patch preselect race from profil -->
         <mat-option *ngFor="let type of types" [value]="type.type">
           {{type.type}}
         </mat-option>
