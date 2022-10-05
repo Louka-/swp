@@ -7,6 +7,7 @@ import { EditProfilComponent } from './edit-profil/edit-profil.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PostSaleComponent } from './post-sale/post-sale.component';
 import { RegisterComponent } from './register/register.component';
+import { UserSalesComponent } from './user-sales/user-sales.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'connexion', component: ConnexionComponent },
   { path: 'all-sales', component: AllSalesComponent, canActivate: [AuthGuard] },
   { path: 'create-sale', component: PostSaleComponent, canActivate: [AuthGuard] },
-  { path: 'user-sales', component: PostSaleComponent, canActivate: [AuthGuard] },
+  { path: 'user-sales', component: UserSalesComponent, canActivate: [AuthGuard] },
   { path: 'edit-profil', component: EditProfilComponent, canActivate: [AuthGuard] },
 ];
 

@@ -21,6 +21,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 import { EditProfilComponent } from './edit-profil/edit-profil.component';
 import { PostSaleComponent } from './post-sale/post-sale.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
@@ -30,6 +33,7 @@ import { CardDetailComponent } from './card-detail/card-detail.component';
 import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
 import { HomepageComponent } from './homepage/homepage.component';
 import { RegisterComponent } from './register/register.component';
+import { UserSalesComponent } from './user-sales/user-sales.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { RegisterComponent } from './register/register.component';
     CarouselComponent,
     CardDetailComponent,
     HomepageComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserSalesComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +69,9 @@ import { RegisterComponent } from './register/register.component';
     MatCheckboxModule,
     MatProgressBarModule,
     NgxMatFileInputModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatMenuModule,
     AngularSvgIconModule.forRoot(),
   ],
   providers: [
