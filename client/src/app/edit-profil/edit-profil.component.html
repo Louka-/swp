@@ -5,6 +5,7 @@ sales: Sale[]; -->
   profil: profil$ | async
 } as data" class="profil">
   <form #profilForm="ngForm">
+    <h1>Edition du profil</h1>
     <mat-form-field class="width" appearance="fill">
       <mat-label>Avatar</mat-label>
       <ngx-mat-file-input matInput [ngModel]="data.profil?.picture" picture #pictureInput="ngModel" name="picture">
@@ -40,10 +41,9 @@ sales: Sale[]; -->
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Anniversaire</mat-label>
-      <!--TODO patch date format -->
       <input matInput [matDatepicker]="picker" [ngModel]="data.profil?.birthday" birthday #birthdayInput="ngModel"
         name="birthday">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>Jour/Mois/Année</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field> <br>

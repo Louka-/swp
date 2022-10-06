@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -24,6 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import { EditProfilComponent } from './edit-profil/edit-profil.component';
 import { PostSaleComponent } from './post-sale/post-sale.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
@@ -34,6 +35,11 @@ import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
 import { HomepageComponent } from './homepage/homepage.component';
 import { RegisterComponent } from './register/register.component';
 import { UserSalesComponent } from './user-sales/user-sales.component';
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+import { PhonePipe } from './phone.pipe';
+
+registerLocaleData(localeFr, 'fr')
 
 @NgModule({
   declarations: [
@@ -46,7 +52,8 @@ import { UserSalesComponent } from './user-sales/user-sales.component';
     CardDetailComponent,
     HomepageComponent,
     RegisterComponent,
-    UserSalesComponent
+    UserSalesComponent,
+    PhonePipe,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +79,7 @@ import { UserSalesComponent } from './user-sales/user-sales.component';
     MatPaginatorModule,
     MatTableModule,
     MatMenuModule,
+    MatDialogModule,
     AngularSvgIconModule.forRoot(),
   ],
   providers: [
@@ -79,6 +87,8 @@ import { UserSalesComponent } from './user-sales/user-sales.component';
     MatNativeDateModule,
     JwtHelperService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    { provide: LOCALE_ID, useValue: 'fr-FR' }
   ],
   bootstrap: [AppComponent]
 })

@@ -9,16 +9,14 @@
       <h2>Détail</h2>
     </div>
     <div class="row">
-      <div class="center-text">Prix: {{sale?.price}} €</div>
+      <div class="center-text">Prix: {{sale?.price | currency: 'EUR'}}</div>
     </div>
     <div class="row">
-      <div class="center-text">Téléphone: {{profil?.phone}}</div>
+      <div class="center-text">Téléphone: {{profil?.phone | phone}}</div>
     </div>
     <div class="row">
       <div class="center-text">Livraison possible: {{sale?.shipping ? 'oui' : 'non'}}
       </div>
     </div>
-
-
   </div>
 </div>

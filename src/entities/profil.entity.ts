@@ -25,7 +25,10 @@ export class Profil extends Timestamp {
   birthday: Date;
 
   @Column()
-  phone: number;
+  phone: string;
+
+  @Column()
+  city: string;
 
   @OneToOne(() => User, user => user.profil,
     {

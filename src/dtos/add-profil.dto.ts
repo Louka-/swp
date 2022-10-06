@@ -30,7 +30,11 @@ export class AddProfilDto {
 
   @IsNumber()
   @IsNotEmpty()
-  phone: number;
+  phone: string;
+
+  @IsString()
+  @IsNotEmpty()
+  city: string;
 
   @IsNotEmpty()
   level: Level;

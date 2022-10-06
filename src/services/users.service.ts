@@ -7,7 +7,6 @@ import { User } from '../entities/user.entity';
 import { LoginCredentialsDto } from '../dtos/login-credentials.dto';
 import { UserSubscribeDto } from 'src/dtos/user-subscribe.dto';
 import { ProfilService } from './profil.service';
-import { Profil } from 'src/entities/profil.entity';
 
 @Injectable()
 export class UsersService {
@@ -36,6 +35,15 @@ export class UsersService {
 
   async register(userData: UserSubscribeDto): Promise<Partial<User>> {
 
+    // if (userData.password !== userData.confirmPassword) {
+    //   try {
+    //     throw new Error("les mots de passe ne sont pas identiques")
+    //   } catch (e) {
+    //     console.log("passwords error");
+    //     console.log(e)
+    //   }
+    // }
+
     const today = new Date(Date.now())
 
     const user = this.usersRepository.create(userData);
@@ -44,11 +52,12 @@ export class UsersService {
 
     const emptyModel = {
       name: '',
-      race: 'Gost',
+      race: 'Ghost',
       description: 'to be filled',
       picture: "",
       birthday: today,
-      phone: 1234567890,
+      phone: '1234567890',
+      city: 'NoWhere',
       level: null,
     };
 
