@@ -7,7 +7,7 @@ export interface Profil {
   description: string;
   picture: string;
   birthday: Date;
-  phone: number;
+  phone: string;
   city: string;
   sales: Sale[];
   // level: Level;
