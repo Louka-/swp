@@ -5,11 +5,12 @@ import { Profil } from '../models/profil.model';
 import { ProfilService } from '../service/profil.service';
 import { UserService } from '../service/user.service';
 import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profil',
   templateUrl: './edit-profil.component.html',
-  styleUrls: ['./edit-profil.component.sass']
+  styleUrls: ['./edit-profil.component.sass'],
 })
 export class EditProfilComponent {
   userId = this.auth.getCurrentUserId();
@@ -26,12 +27,16 @@ export class EditProfilComponent {
   constructor(
     private profilService: ProfilService,
     private userService: UserService,
+    private router: Router,
     private auth: AuthService,
   ) { }
 
   validate(form: NgForm) {
     return this.profil$.pipe(
-      switchMap(profil => this.profilService.saveNewProfil(profil.id, form.value)),
+      switchMap(profil => {
+        this.profilService.saveNewProfil(profil.id, form.value)
+        return this.router.navigate(['all-sales'])
+      }),
     ).subscribe();
   }
 
