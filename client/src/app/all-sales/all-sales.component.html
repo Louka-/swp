@@ -1,22 +1,22 @@
 <div *ngIf="{
-  sales: sales | async
+  profils: profils$ | async
 }as data">
-  <div *ngFor="let sale of data.sales">
-    <mat-card class="example-card">
+  <div *ngFor="let profil of data.profils">
+    <mat-card class="card" *ngFor="let sale of profil.sales;">
       <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>{{sale.title}}</mat-card-title>
-        <mat-card-subtitle>{{sale.type}}</mat-card-subtitle>
+        <div mat-card-avatar class="header-image"></div>
+        <mat-card-title>{{profil.name}}</mat-card-title>
+        <mat-card-subtitle class="italic">{{profil.race}} de {{profil.city}}</mat-card-subtitle>
+        <div class="end">
+          <div>{{sale.createdAt | date:'medium':'+0200':'fr'}}</div>
+          <div class="italic">{{sale.type}}</div>
+        </div>
       </mat-card-header>
-      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt={{sale.type}}> -->
-      <app-carousel [images]="images"></app-carousel> <br>
       <mat-card-content>
-        <p>
-          {{sale.message}}
-        </p> <br>
-        <p>
-          {{sale.price}} €
-        </p>
+        <h1>{{sale.title}}</h1>
+        <p class="italic">{{sale.message}}</p>
+        <app-card-detail [sale]="sale" [profil]="profil"></app-card-detail>
+
       </mat-card-content>
     </mat-card>
   </div>

@@ -1,6 +1,8 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
+import { Profil } from '../models/profil.model';
 import { Sale } from '../models/sale.model';
+import { ProfilService } from '../service/profil.service';
 import { SalesService } from '../service/sales.service';
 
 @Component({
@@ -10,32 +12,12 @@ import { SalesService } from '../service/sales.service';
 })
 
 @Injectable()
-export class AllSalesComponent implements OnInit {
-  sales: Observable<Sale[]> | undefined;
+export class AllSalesComponent {
 
-  images = [
-    {
-      imageSrc: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-      imageAlt: 'test'
-    },
-    {
-      imageSrc: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      imageAlt: 'test'
-    },
-    {
-      imageSrc: 'https://material.angular.io/assets/img/examples/shiba3.jpg',
-      imageAlt: 'test'
-    },
-  ];
+  profils$: Observable<Profil[]> = this.profilService.getAllUsersProfil();
 
   constructor(
-    private salesService: SalesService,
+    private profilService: ProfilService,
   ) { }
-
-  ngOnInit(): void {
-    this.sales = this.salesService.getAllSales().pipe(
-      map(sales => sales.reverse())
-    );
-  }
 
 }
