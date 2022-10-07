@@ -3,7 +3,7 @@ import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AllSalesComponent } from './all-sales/all-sales.component';
@@ -24,7 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditProfilComponent } from './edit-profil/edit-profil.component';
 import { PostSaleComponent } from './post-sale/post-sale.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
@@ -80,6 +80,8 @@ registerLocaleData(localeFr, 'fr')
     MatTableModule,
     MatMenuModule,
     MatDialogModule,
+    ReactiveFormsModule,
+    MatDialogModule,
     AngularSvgIconModule.forRoot(),
   ],
   providers: [
@@ -88,7 +90,9 @@ registerLocaleData(localeFr, 'fr')
     JwtHelperService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
-    { provide: LOCALE_ID, useValue: 'fr-FR' }
+    { provide: LOCALE_ID, useValue: 'fr-FR' },
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
   ],
   bootstrap: [AppComponent]
 })
