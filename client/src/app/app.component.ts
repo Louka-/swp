@@ -10,11 +10,16 @@ import { AuthService } from './service/auth.service';
 export class AppComponent {
   constructor(
     public authService: AuthService,
+    private router: Router
 
   ) { }
 
   logout() {
     this.authService.logout();
+  }
+
+  redirectToAllSales() {
+    this.router.navigate(['all-sales']);
   }
 
   scrollToTop() {

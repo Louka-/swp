@@ -3,7 +3,7 @@
     <button mat-icon-button *ngIf="authService.isAutheticated()">
       <mat-icon (click)="sidenav.toggle();">menu</mat-icon>
     </button>
-    <div class="row">
+    <div class="row" (click)="redirectToAllSales()">
       <h1>StuffWayPoint</h1>
       <div class="image">
         <img src="Fantasy-Dragon.png" [ngStyle]="{ 'height.px':45 }" alt="dragon">
