@@ -3,12 +3,12 @@
     <h1>Poster une annonce</h1>
     <mat-form-field class="width" appearance="fill">
       <mat-label>Titre</mat-label>
-      <input type="text" matInput ngModel title #titleInput="ngModel" name="title">
+      <input type="text" matInput ngModel [ngModel]="sale?.title" title #titleInput="ngModel" name="title">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Type</mat-label>
-      <mat-select ngModel type #typeInput="ngModel" name="type">
+      <mat-select ngModel [ngModel]="sale?.type" type #typeInput="ngModel" name="type">
         <mat-option *ngFor="let type of types" [value]="type.type">
           {{type.type}}
         </mat-option>
@@ -17,33 +17,40 @@
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Ajoutez une petite description</mat-label>
-      <textarea matInput ngModel message #messageInput="ngModel" name="message"></textarea>
+      <textarea matInput ngModel [ngModel]="sale?.message" message #messageInput="ngModel" name="message"></textarea>
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Photo 1</mat-label>
-      <input type="text" matInput ngModel pictureOne #pictureOneInput="ngModel" name="pictureOne">
+      <input type="text" matInput ngModel [ngModel]="sale?.pictureOne" pictureOne #pictureOneInput="ngModel"
+        name="pictureOne">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Photo 2</mat-label>
-      <input type="text" matInput ngModel pictureTwo #pictureTwoInput="ngModel" name="pictureTwo">
+      <input type="text" matInput ngModel [ngModel]="sale?.pictureTwo" pictureTwo #pictureTwoInput="ngModel"
+        name="pictureTwo">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Photo 3</mat-label>
-      <input type="text" matInput ngModel pictureThree #pictureThreeInput="ngModel" name="pictureThree">
+      <input type="text" matInput ngModel [ngModel]="sale?.pictureThree" pictureThree #pictureThreeInput="ngModel"
+        name="pictureThree">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Prix</mat-label>
-      <input type="number" matInput ngModel price #priceInput="ngModel" name="price">
+      <input type="number" matInput ngModel [ngModel]="sale?.price" price #priceInput="ngModel" name="price">
     </mat-form-field> <br>
 
-    <mat-checkbox ngModel shipping #shippingInput="ngModel" name="shipping">Livraison possible</mat-checkbox> <br>
+    <mat-checkbox ngModel [ngModel]="sale?.shipping" shipping #shippingInput="ngModel" name="shipping">Livraison
+      possible</mat-checkbox> <br>
 
-    <div class="button">
+    <div class="button" *ngIf="!sale">
       <button mat-raised-button (click)="validate(saleForm)">Poster l'annonce</button>
+    </div>
+    <div class="button" *ngIf="!!sale">
+      <button mat-raised-button (click)="updateSale(sale.id, saleForm)">Mettre à jour</button>
     </div>
 
   </form>

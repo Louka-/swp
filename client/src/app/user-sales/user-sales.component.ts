@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, switchMap } from 'rxjs';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { map, Observable, switchMap } from 'rxjs';
 import { Sale } from '../models/sale.model';
 import { AuthService } from '../service/auth.service';
 import { SalesService } from '../service/sales.service';
 import { UserService } from '../service/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PostSaleComponent } from '../post-sale/post-sale.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-user-sales',
   templateUrl: './user-sales.component.html',
   styleUrls: ['./user-sales.component.sass']
 })
-export class UserSalesComponent {
+export class UserSalesComponent implements OnInit, AfterViewInit {
   user = this.userService.getUserById(this.auth.getCurrentUserId());
-  sales$: Observable<Sale[]> = this.user.pipe(
-    switchMap(user => this.salesService.getAllSalesByUserId(user.profil.id)),
-  );
+  sales$?: Observable<Sale[]>;
   displayedColumns = [
     'title',
     'type',
@@ -23,30 +24,70 @@ export class UserSalesComponent {
     'actions'
   ];
 
+  // sales: Sale[] = [];
+  // @ViewChild(MatPaginator) paginator?: MatPaginator;
+  // totalRecords = 0;
+
   constructor(
     private salesService: SalesService,
+    public dialog: MatDialog,
     private userService: UserService,
     private auth: AuthService
   ) { }
 
-  deleteSale(id: number) {
-    this.salesService.deleteSale(id).subscribe()
+  ngOnInit(): void {
+    this.sales$ = this.user.pipe(
+      switchMap(user => this.salesService.getAllSalesByUserId(user.profil.id)),
+    );
   }
 
-  editSale(id: number) {
-    //fake dto to test
-    //TODO implement edit sale component
-    const dto = {
-      title: 'test',
-      type: 'testt',
-      message: 'oui mais non',
-      pictureOne: 'qsdf',
-      pictureTwo: 'qsdf',
-      pictureThree: 'qsdf',
-      price: 120,
-      shipping: true,
-    } as Sale
-    this.salesService.editSale(id, dto).subscribe();
+  ngAfterViewInit() {
+    // this.pageChange();
+    // this.initialLoad();
+  }
+
+  // initialLoad() {
+  //   let currentPage = (this.paginator?.pageIndex ?? 0) + 1;
+  //   this.salesService.getAllSalesPagination(currentPage, (this.paginator?.pageSize ?? 0))
+  //     .subscribe(result => {
+  //       this.totalRecords = result.totalCount;
+  //       this.sales = result.data;
+  //     })
+  // }
+
+  // pageChange() {
+  //   this.paginator?.page.pipe(
+  //     switchMap(() => {
+  //       let currentPage = (this.paginator?.pageIndex ?? 0) + 1;
+  //       return this.salesService.getAllSalesPagination(currentPage, (this.paginator?.pageSize ?? 0));
+  //     }),
+  //     map(result => {
+  //       if (!result) {
+  //         return [];
+  //       }
+  //       this.totalRecords = result.totalCount;
+  //       return result.data;
+  //     })
+  //   )
+  //     .subscribe(data => {
+  //       this.sales = data;
+  //     });
+  // }
+
+  deleteSale(id: number) {
+    this.salesService.deleteSale(id).subscribe();
+    this.ngOnInit();
+  }
+
+  editSale(sale: Sale) {
+    this.dialog.open(PostSaleComponent, {
+      height: '100%',
+      data: {
+        sale: sale,
+      }
+    }).afterClosed().pipe(
+      map(() => this.ngOnInit()),
+    ).subscribe();
   }
 
 }

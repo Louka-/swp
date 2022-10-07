@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SalePagingModel } from '../models/sale-paging-model';
 import { Sale } from '../models/sale.model';
 
 const API_SALES = 'http://localhost:3000/sale';
@@ -15,6 +16,12 @@ export class SalesService {
 
   getAllSales(): Observable<Sale[]> {
     return this.http.get<Sale[]>(`${API_SALES}/all`);
+  }
+
+  getAllSalesPagination(currentPage: number, pageSize: number): Observable<SalePagingModel> {
+    return this.http.get<SalePagingModel>(
+      `${API_SALES}/all-paginated?currentPageNumber=${currentPage}&pagesize=${pageSize}`
+    );
   }
 
   getAllSalesByUserId(id: number): Observable<Sale[]> {
