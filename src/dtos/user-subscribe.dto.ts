@@ -7,4 +7,7 @@ export class UserSubscribeDto {
 
   @IsNotEmpty()
   password: string;
+
+  // @IsNotEmpty()
+  // confirmPassword: string;
 }

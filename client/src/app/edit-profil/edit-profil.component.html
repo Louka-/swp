@@ -4,35 +4,45 @@ sales: Sale[]; -->
 <div *ngIf="{
   profil: profil$ | async
 } as data" class="profil">
-  <form #profilForm="ngForm">
+  <form [formGroup]="profilForm">
     <h1>Edition du profil</h1>
-    <mat-form-field class="width" appearance="fill">
+    <div class="bot">
+      <input type="file" (change)="onFileChange($event)">
+      <input type="text" id="picture" name="picture" formControlName="picture"> <br>
+    </div>
+    <!-- <mat-form-field class="width" appearance="fill">
       <mat-label>Avatar</mat-label>
-      <ngx-mat-file-input matInput [ngModel]="data.profil?.picture" picture #pictureInput="ngModel" name="picture">
-      </ngx-mat-file-input>
-    </mat-form-field> <br>
-    <img mat-card-avatar src="" alt="test"> <br>
+    </mat-form-field> <br> -->
+    <div class="preview" *ngIf="!!preview">
+      <img [src]="preview" alt="test" class="max-width" />
+      <button id="button" mat-raised-button (click)="uploadPhoto(profilForm)">Enregistrer</button>
+    </div>
 
-    <mat-form-field class="width" appearance="fill">
+    <div *ngIf="!!message" class="button">
+      {{message}}
+    </div>
+
+    <mat-form-field class=" width" appearance="fill">
       <mat-label>Pseudo</mat-label>
-      <input type="text" matInput [ngModel]="data.profil?.name" name #nameInput="ngModel" name="name">
+      <input type="text" matInput id="name" name="name" formControlName="name" [value]="data.profil?.name">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Ajoutez une petite description</mat-label>
-      <textarea matInput [ngModel]="data.profil?.description" description #descriptionInput="ngModel"
-        name="description"></textarea>
+      <textarea matInput id="description" name="description" formControlName="description"
+        [value]="data.profil?.description"></textarea>
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Téléphone</mat-label>
       <!-- TODO fix other character then number -->
-      <input type="tel" maxlength="10" matInput [ngModel]="data.profil?.phone" phone #phoneInput="ngModel" name="phone">
+      <input type="tel" maxlength="10" matInput id="phone" name="phone" formControlName="phone"
+        [value]="data.profil?.phone">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Race</mat-label>
-      <mat-select ngModel race #raceInput="ngModel" name="race" [value]="data.profil?.race">
+      <mat-select id="race" name="race" formControlName="race" [value]="data.profil?.race">
         <mat-option *ngFor="let race of races" [value]="race.value">
           {{race.value}}
         </mat-option>
@@ -40,9 +50,14 @@ sales: Sale[]; -->
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
+      <mat-label>Ville</mat-label>
+      <input type="text" matInput id="city" name="city" formControlName="city" [value]="data.profil?.city">
+    </mat-form-field> <br>
+
+    <mat-form-field class="width" appearance="fill">
       <mat-label>Anniversaire</mat-label>
-      <input matInput [matDatepicker]="picker" [ngModel]="data.profil?.birthday" birthday #birthdayInput="ngModel"
-        name="birthday">
+      <input matInput [matDatepicker]="picker" id="birthday" name="birthday" formControlName="birthday"
+        [value]="data.profil?.birthday">
       <mat-hint>Jour/Mois/Année</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>

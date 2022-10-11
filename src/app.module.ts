@@ -8,6 +8,8 @@ import { UsersModule } from './modules/users.module';
 import { LevelModule } from './modules/level.module';
 import { SaleModule } from './modules/sale.module';
 import * as dotenv from 'dotenv';
+import { MulterModule } from '@nestjs/platform-express';
+import { PhotosController } from './controllers/photos.controller';
 
 dotenv.config();
 
@@ -32,8 +34,11 @@ dotenv.config();
     ProfilModule,
     LevelModule,
     SaleModule,
+    MulterModule.register({
+      dest: './files',
+    })
   ],
-  controllers: [AppController],
+  controllers: [AppController, PhotosController],
   providers: [AppService],
   exports: [AppService]
 })
