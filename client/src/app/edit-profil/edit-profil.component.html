@@ -14,7 +14,12 @@
     </div>
 
     <mat-form-field class=" width" appearance="fill">
-      <mat-label>Pseudo</mat-label>
+      <mat-label>
+        Pseudo
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.name.touched && f.name.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <input type="text" matInput id="name" name="name" formControlName="name" [value]="data.profil?.name">
     </mat-form-field> <br>
 
@@ -25,13 +30,23 @@
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
-      <mat-label>Téléphone</mat-label>
+      <mat-label>
+        Téléphone
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.phone.touched && f.phone.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <input type="tel" maxlength="10" matInput id="phone" name="phone" formControlName="phone"
         [value]="data.profil?.phone">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
-      <mat-label>Race</mat-label>
+      <mat-label>
+        Race
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.race.touched && f.race.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <mat-select id="race" name="race" formControlName="race" [value]="data.profil?.race">
         <mat-option *ngFor="let race of races" [value]="race.value">
           {{race.value}}
@@ -40,12 +55,22 @@
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
-      <mat-label>Ville</mat-label>
+      <mat-label>
+        Ville
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.city.touched && f.city.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <input type="text" matInput id="city" name="city" formControlName="city" [value]="data.profil?.city">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
-      <mat-label>Anniversaire</mat-label>
+      <mat-label>
+        Anniversaire
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.birthday.touched && f.birthday.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <input matInput [matDatepicker]="picker" id="birthday" name="birthday" formControlName="birthday"
         [value]="data.profil?.birthday">
       <mat-hint>Jour/Mois/Année</mat-hint>

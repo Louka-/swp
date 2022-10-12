@@ -3,12 +3,22 @@
     <h1 *ngIf="!sale">Poster une annonce</h1>
     <h1 *ngIf="!!sale">Editer votre annonce</h1>
     <mat-form-field class="width" appearance="fill">
-      <mat-label>Titre</mat-label>
+      <mat-label>
+        Titre
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.title.touched && f.title.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <input type="text" matInput id="title" name="title" formControlName="title" [value]="sale?.title">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
-      <mat-label>Type</mat-label>
+      <mat-label>
+        Type
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.type.touched && f.type.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <mat-select matInput id="type" name="type" formControlName="type" [value]="sale?.type">
         <mat-option *ngFor="let type of types" [value]="type.type">
           {{type.type}}
@@ -17,7 +27,12 @@
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
-      <mat-label>Ajoutez une petite description</mat-label>
+      <mat-label>
+        Ajoutez une petite description
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.message.touched && f.message.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <textarea matInput id="message" name="message" formControlName="message" [value]="sale?.message"></textarea>
     </mat-form-field> <br>
 
@@ -31,7 +46,12 @@
 
 
     <mat-form-field class="width" appearance="fill">
-      <mat-label>Prix</mat-label>
+      <mat-label>
+        Prix
+        <span style="color: #f44336;; font-size: small;" *ngIf="f.price.touched && f.price.errors">
+          Vous devez renseigner ce champs
+        </span>
+      </mat-label>
       <input type="number" matInput id="price" name="price" formControlName="price" [value]="sale?.price">
     </mat-form-field> <br>
 

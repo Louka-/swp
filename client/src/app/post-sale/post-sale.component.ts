@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { SalesService } from '../service/sales.service';
 import { Router } from '@angular/router';
@@ -17,13 +17,13 @@ import { FileUploadService } from '../service/file-upload.service';
 })
 export class PostSaleComponent implements OnInit {
   saleForm = new FormGroup({
-    title: new FormControl(),
-    type: new FormControl(),
-    message: new FormControl(),
+    title: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required]),
+    message: new FormControl('', [Validators.required]),
     pictureOne: new FormControl(),
     pictureTwo: new FormControl(),
     pictureThree: new FormControl(),
-    price: new FormControl(),
+    price: new FormControl(0, [Validators.required]),
     shipping: new FormControl(),
   });
 
@@ -49,6 +49,8 @@ export class PostSaleComponent implements OnInit {
 
     this.sale = data.sale;
   }
+
+  get f() { return this.saleForm.controls; }
 
   ngOnInit(): void {
     if (!!this.sale) {

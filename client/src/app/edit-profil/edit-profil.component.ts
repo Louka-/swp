@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { Profil } from '../models/profil.model';
@@ -25,13 +25,13 @@ export class EditProfilComponent implements OnInit {
   profilId: number = 0;
 
   profilForm = new FormGroup({
-    picture: new FormControl(),
-    name: new FormControl(),
+    picture: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
     description: new FormControl(),
-    phone: new FormControl(),
-    race: new FormControl(),
-    city: new FormControl(),
-    birthday: new FormControl(),
+    phone: new FormControl('', [Validators.required]),
+    race: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    birthday: new FormControl(new Date(), [Validators.required]),
   });
 
   races = [
@@ -47,6 +47,8 @@ export class EditProfilComponent implements OnInit {
     private auth: AuthService,
     private uploadService: FileUploadService,
   ) { }
+
+  get f() { return this.profilForm.controls; }
 
   ngOnInit(): void {
     this.profil$.pipe(
