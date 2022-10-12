@@ -21,6 +21,19 @@ export class FileUploadService {
     });
   }
 
+  uploadSalePhoto(files: File[]): Observable<any> {
+    const formData = new FormData();
+    for (var i = 0; i < files.length; i++) {
+      formData.append("images", files[i]);
+    }
+
+    return this.http.post<File[]>(`${API_UPLOAD}/multiple`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+  }
+
   getFiles(name: string): Observable<any> {
     return this.http.get(`${API_UPLOAD}/image/${name}`);
   }

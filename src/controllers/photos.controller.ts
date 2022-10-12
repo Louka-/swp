@@ -34,9 +34,9 @@ export class PhotosController {
 
   @Post('multiple')
   @UseInterceptors(
-    FilesInterceptor('image', 20, {
+    FilesInterceptor('images', 3, {
       storage: diskStorage({
-        destination: './client/public/files',
+        destination: './client/src/assets/sales',
         filename: editFileName,
       }),
       fileFilter: imageFileFilter,
