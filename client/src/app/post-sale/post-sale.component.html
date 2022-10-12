@@ -1,14 +1,14 @@
 <div class="sale">
-  <form #saleForm="ngForm">
+  <form [formGroup]="saleForm">
     <h1>Poster une annonce</h1>
     <mat-form-field class="width" appearance="fill">
       <mat-label>Titre</mat-label>
-      <input type="text" matInput ngModel [ngModel]="sale?.title" title #titleInput="ngModel" name="title">
+      <input type="text" matInput id="title" name="title" formControlName="title" [value]="sale?.title">
     </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Type</mat-label>
-      <mat-select ngModel [ngModel]="sale?.type" type #typeInput="ngModel" name="type">
+      <mat-select matInput id="type" name="type" formControlName="type" [value]="sale?.type">
         <mat-option *ngFor="let type of types" [value]="type.type">
           {{type.type}}
         </mat-option>
@@ -17,33 +17,24 @@
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Ajoutez une petite description</mat-label>
-      <textarea matInput ngModel [ngModel]="sale?.message" message #messageInput="ngModel" name="message"></textarea>
+      <textarea matInput id="message" name="message" formControlName="message" [value]="sale?.message"></textarea>
     </mat-form-field> <br>
 
-    <mat-form-field class="width" appearance="fill">
-      <mat-label>Photo 1</mat-label>
-      <input type="text" matInput ngModel [ngModel]="sale?.pictureOne" pictureOne #pictureOneInput="ngModel"
-        name="pictureOne">
-    </mat-form-field> <br>
+    <div class="button bot">
+      <label for="file" class="button-file">Importer des photos</label>
+      <input id="file" type="file" (change)="onFileChange($event)" multiple class="invisible">
+      <input type="text" id="pictureOne" name="pictureOne" formControlName="pictureOne" class="invisible">
+      <input type="text" id="pictureTwo" name="pictureTwo" formControlName="pictureTwo" class="invisible">
+      <input type="text" id="pictureThree" name="pictureThree" formControlName="pictureThree" class="invisible">
+    </div> <br>
 
-    <mat-form-field class="width" appearance="fill">
-      <mat-label>Photo 2</mat-label>
-      <input type="text" matInput ngModel [ngModel]="sale?.pictureTwo" pictureTwo #pictureTwoInput="ngModel"
-        name="pictureTwo">
-    </mat-form-field> <br>
-
-    <mat-form-field class="width" appearance="fill">
-      <mat-label>Photo 3</mat-label>
-      <input type="text" matInput ngModel [ngModel]="sale?.pictureThree" pictureThree #pictureThreeInput="ngModel"
-        name="pictureThree">
-    </mat-form-field> <br>
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Prix</mat-label>
-      <input type="number" matInput ngModel [ngModel]="sale?.price" price #priceInput="ngModel" name="price">
+      <input type="number" matInput id="price" name="price" formControlName="price" [value]="sale?.price">
     </mat-form-field> <br>
 
-    <mat-checkbox ngModel [ngModel]="sale?.shipping" shipping #shippingInput="ngModel" name="shipping">Livraison
+    <mat-checkbox matInput id="shipping" name="shipping" formControlName="shipping">Livraison
       possible</mat-checkbox> <br>
 
     <div class="button" *ngIf="!sale">
