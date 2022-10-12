@@ -1,6 +1,7 @@
 <div class="sale">
   <form [formGroup]="saleForm">
-    <h1>Poster une annonce</h1>
+    <h1 *ngIf="!sale">Poster une annonce</h1>
+    <h1 *ngIf="!!sale">Editer votre annonce</h1>
     <mat-form-field class="width" appearance="fill">
       <mat-label>Titre</mat-label>
       <input type="text" matInput id="title" name="title" formControlName="title" [value]="sale?.title">
