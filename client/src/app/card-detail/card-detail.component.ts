@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CarouselImage } from '../carousel/carousel.component';
 import { Profil } from '../models/profil.model';
 import { Sale } from '../models/sale.model';
 
@@ -11,24 +12,23 @@ export class CardDetailComponent implements OnInit {
   @Input() sale: Sale | undefined;
   @Input() profil: Profil | undefined;
   showDetail = false;
-  images = [
-    {
-      imageSrc: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-      imageAlt: 'test'
-    },
-    {
-      imageSrc: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      imageAlt: 'test'
-    },
-    {
-      imageSrc: 'https://material.angular.io/assets/img/examples/shiba3.jpg',
-      imageAlt: 'test'
-    },
-  ];
+  images: CarouselImage[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+    !!this.sale?.pictureOne ? this.images.push({
+      imageSrc: '/assets/sales/' + this.sale?.pictureOne,
+      imageAlt: 'Photo1'
+    }) : null;
+    !!this.sale?.pictureTwo ? this.images.push({
+      imageSrc: '/assets/sales/' + this.sale?.pictureTwo,
+      imageAlt: 'Photo1'
+    }) : null;
+    !!this.sale?.pictureThree ? this.images.push({
+      imageSrc: '/assets/sales/' + this.sale?.pictureThree,
+      imageAlt: 'Photo1'
+    }) : null;
   }
 
   toggleDetail() {
