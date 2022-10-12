@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-interface carouselImage {
+export interface CarouselImage {
   imageSrc: string;
   imageAlt: string;
 }
@@ -11,7 +11,7 @@ interface carouselImage {
   styleUrls: ['./carousel.component.sass']
 })
 export class CarouselComponent {
-  @Input() images: carouselImage[] = [];
+  @Input() images: CarouselImage[] = [];
   @Input() indicators = true;
   @Input() controls = true;
 
