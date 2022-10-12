@@ -1,25 +1,16 @@
-<!-- id: number;
-picture: string;
-sales: Sale[]; -->
 <div *ngIf="{
   profil: profil$ | async
 } as data" class="profil">
   <form [formGroup]="profilForm">
     <h1>Edition du profil</h1>
-    <div class="bot">
-      <input type="file" (change)="onFileChange($event)">
-      <input type="text" id="picture" name="picture" formControlName="picture"> <br>
-    </div>
-    <!-- <mat-form-field class="width" appearance="fill">
-      <mat-label>Avatar</mat-label>
-    </mat-form-field> <br> -->
-    <div class="preview" *ngIf="!!preview">
-      <img [src]="preview" alt="test" class="max-width" />
-      <button id="button" mat-raised-button (click)="uploadPhoto(profilForm)">Enregistrer</button>
+    <div class="button bot">
+      <label for="file" class="button-file">Changer d'avatar</label>
+      <input id="file" type="file" (change)="onFileChange($event, profilForm)" class="invisible">
+      <input type="text" id="picture" name="picture" formControlName="picture" class="invisible"> <br>
     </div>
 
-    <div *ngIf="!!message" class="button">
-      {{message}}
+    <div class="preview" *ngIf="!!preview">
+      <img [src]="preview" alt="test" class="max-width" />
     </div>
 
     <mat-form-field class=" width" appearance="fill">
@@ -35,7 +26,6 @@ sales: Sale[]; -->
 
     <mat-form-field class="width" appearance="fill">
       <mat-label>Téléphone</mat-label>
-      <!-- TODO fix other character then number -->
       <input type="tel" maxlength="10" matInput id="phone" name="phone" formControlName="phone"
         [value]="data.profil?.phone">
     </mat-form-field> <br>

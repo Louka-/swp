@@ -1,6 +1,6 @@
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
-import { Component, OnChanges, SimpleChanges, OnInit } from '@angular/core';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
 import { Profil } from '../models/profil.model';
 import { ProfilService } from '../service/profil.service';
 import { UserService } from '../service/user.service';
@@ -22,8 +22,6 @@ export class EditProfilComponent implements OnInit {
   selectedFiles?: FileList;
   currentFile?: File;
   preview = '';
-  message = '';
-  pictureName = '';
   profilId: number = 0;
 
   profilForm = new FormGroup({
@@ -66,7 +64,7 @@ export class EditProfilComponent implements OnInit {
     ).subscribe()
   }
 
-  onFileChange(event: any) {
+  onFileChange(event: any, form: FormGroup) {
     this.preview = '';
     this.selectedFiles = event.target.files;
 
@@ -86,27 +84,23 @@ export class EditProfilComponent implements OnInit {
         reader.readAsDataURL(this.currentFile);
       }
     }
-  }
-
-  uploadPhoto(form: FormGroup) {
-    if (!!this.currentFile) {
-      this.uploadService.upload(this.currentFile).pipe(
-        map(res => {
-          this.pictureName = res.filename;
-          form.get('picture')?.patchValue(res.filename);
-          this.message = '';
-        }),
-      ).subscribe();
-    }
+    form.get('picture')?.markAsDirty;
   }
 
   validate(form: FormGroup) {
-    if (form.get('picture')?.value != this.pictureName) {
-      this.message = "Vous devez uploader votre nouvelle photo";
+    if (!this.currentFile) {
+      this.profilService.saveNewProfil(this.profilId, form.value).pipe(
+        map(() => this.router.navigate(['all-sales']))).subscribe()
     } else {
-      this.profilService.saveNewProfil(this.profilId, form.value).subscribe();
-      this.message = '';
-      this.router.navigate(['all-sales']);
+      this.uploadService.upload(this.currentFile).pipe(
+        map(res => {
+          form.get('picture')?.patchValue(res.filename);
+        }),
+      ).pipe(
+        map(() => this.profilService.saveNewProfil(this.profilId, form.value).subscribe())
+      ).pipe(
+        map(() => this.router.navigate(['all-sales']))
+      ).subscribe();
     }
   }
 
