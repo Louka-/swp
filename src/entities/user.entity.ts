@@ -25,4 +25,10 @@ export class User extends Timestamp {
     })
   @JoinColumn()
   profil: Profil;
+
+  @Column({ nullable: true, name: 'refreshtoken' })
+  refreshToken: string;
+
+  @Column({ type: 'date', nullable: true, name: 'refreshtokenexp' })
+  refreshTokenExp: string;
 }
