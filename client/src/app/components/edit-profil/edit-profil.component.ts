@@ -92,7 +92,6 @@ export class EditProfilComponent implements OnInit {
 
   validate(form: FormGroup) {
     if (form.invalid) {
-      console.log(form)
       this.errors = true;
       return;
     }

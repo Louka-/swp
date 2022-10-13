@@ -54,7 +54,6 @@ export class UsersController {
     res.cookie('auth-cookie', secretData, {
       httpOnly: false,
     });
-    console.log(secretData)
     return { msg: 'success', user: req.user };
   }
 
