@@ -3,6 +3,11 @@
 } as data" class="profil">
   <form [formGroup]="profilForm">
     <h1>Edition du profil</h1>
+    <div class="width">
+      <span style="color: #f44336;; font-size: small;" *ngIf="errors">
+        Il existe des erreurs dans le formulaire
+      </span>
+    </div>
     <div class="button bot">
       <label for="file" class="button-file">Changer d'avatar</label>
       <input id="file" type="file" (change)="onFileChange($event, profilForm)" class="invisible">

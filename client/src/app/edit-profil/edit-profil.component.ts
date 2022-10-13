@@ -21,8 +21,9 @@ export class EditProfilComponent implements OnInit {
   );
   selectedFiles?: FileList;
   currentFile?: File;
-  preview = '';
+  preview: string = '';
   profilId: number = 0;
+  errors: boolean = false;
 
   profilForm = new FormGroup({
     picture: new FormControl('', [Validators.required]),
@@ -90,6 +91,10 @@ export class EditProfilComponent implements OnInit {
   }
 
   validate(form: FormGroup) {
+    if (this.profilForm.invalid) {
+      this.errors = true;
+      return;
+    }
     if (!this.currentFile) {
       this.profilService.saveNewProfil(this.profilId, form.value).pipe(
         map(() => this.router.navigate(['all-sales']))).subscribe()

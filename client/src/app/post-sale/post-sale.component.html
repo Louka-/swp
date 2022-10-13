@@ -2,6 +2,11 @@
   <form [formGroup]="saleForm">
     <h1 *ngIf="!sale">Poster une annonce</h1>
     <h1 *ngIf="!!sale">Editer votre annonce</h1>
+    <div class="width">
+      <span style="color: #f44336;; font-size: small;" *ngIf="errors">
+        Il existe des erreurs dans le formulaire
+      </span>
+    </div>
     <mat-form-field class="width" appearance="fill">
       <mat-label>
         Titre
@@ -66,4 +71,5 @@
     </div>
 
   </form>
+
 </div>

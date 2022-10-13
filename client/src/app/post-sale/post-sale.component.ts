@@ -28,6 +28,7 @@ export class PostSaleComponent implements OnInit {
   });
 
   sale?: Sale;
+  errors: boolean = false;
 
   types = [
     { type: "armure" },
@@ -74,6 +75,10 @@ export class PostSaleComponent implements OnInit {
   }
 
   validate(form: FormGroup) {
+    if (this.saleForm.invalid) {
+      this.errors = true;
+      return;
+    }
     this.uploadService.uploadSalePhoto(this.photos).pipe(
       map(res => {
         form.get('pictureOne')?.patchValue(res[0]?.filename);
@@ -96,6 +101,10 @@ export class PostSaleComponent implements OnInit {
   }
 
   updateSale(id: number, form: FormGroup) {
+    if (this.saleForm.invalid) {
+      this.errors = true;
+      return;
+    }
     this.uploadService.uploadSalePhoto(this.photos).pipe(
       map(res => {
         form.get('pictureOne')?.patchValue(res[0]?.filename);
