@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-connexion',
@@ -23,8 +23,8 @@ export class ConnexionComponent {
   login(loginForm: NgForm) {
     this.auth.login(loginForm.value).pipe(
       map((reponse) => {
-        localStorage.setItem('jwt', reponse.jwt);
-        localStorage.setItem('userId', reponse.id);
+        localStorage.setItem('jwt', reponse.cookie?.secretData.token);
+        this.auth.saveUserToLocalStorage(reponse.user)
         this.router.navigate(['/all-sales']);
       }),
     ).subscribe();

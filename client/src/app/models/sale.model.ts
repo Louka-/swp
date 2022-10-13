@@ -9,6 +9,7 @@ export interface Sale {
   price: number;
   shipping: boolean;
   createdAt: Date;
+  updatedAt: Date;
   profilId: number;
 
 }

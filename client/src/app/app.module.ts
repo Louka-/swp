@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ConnexionComponent } from './connexion/connexion.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AllSalesComponent } from './all-sales/all-sales.component';
+import { ConnexionComponent } from './components/connexion/connexion.component';
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AllSalesComponent } from './components/all-sales/all-sales.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -25,19 +25,20 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditProfilComponent } from './edit-profil/edit-profil.component';
-import { PostSaleComponent } from './post-sale/post-sale.component';
+import { EditProfilComponent } from './components/edit-profil/edit-profil.component';
+import { PostSaleComponent } from './components/post-sale/post-sale.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { CarouselComponent } from './carousel/carousel.component';
-import { CardDetailComponent } from './card-detail/card-detail.component';
-import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
-import { HomepageComponent } from './homepage/homepage.component';
-import { RegisterComponent } from './register/register.component';
-import { UserSalesComponent } from './user-sales/user-sales.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { CardDetailComponent } from './components/card-detail/card-detail.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { RegisterComponent } from './components/register/register.component';
+import { UserSalesComponent } from './components/user-sales/user-sales.component';
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
-import { PhonePipe } from './phone.pipe';
+import { PhonePipe } from './pipe/phone.pipe';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { AuthGuard } from './guard/auth.guard';
 
 registerLocaleData(localeFr, 'fr')
 
@@ -61,6 +62,10 @@ registerLocaleData(localeFr, 'fr')
     CommonModule,
     FormsModule,
     HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: "XSRF_TOKEN",
+      headerName: "X-XSRF-TOKEN",
+    }),
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -87,8 +92,12 @@ registerLocaleData(localeFr, 'fr')
   providers: [
     MatDatepickerModule,
     MatNativeDateModule,
-    JwtHelperService,
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     { provide: MatDialogRef, useValue: {} },

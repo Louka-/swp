@@ -9,6 +9,6 @@ export interface Profil {
   birthday: Date;
   phone: string;
   city: string;
-  sales: Sale[];
+  sales?: Sale[];
   // level: Level;
 }

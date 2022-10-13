@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllSalesComponent } from './all-sales/all-sales.component';
-import { AuthGuard } from './auth.guard';
-import { ConnexionComponent } from './connexion/connexion.component';
-import { EditProfilComponent } from './edit-profil/edit-profil.component';
-import { HomepageComponent } from './homepage/homepage.component';
-import { PostSaleComponent } from './post-sale/post-sale.component';
-import { RegisterComponent } from './register/register.component';
-import { UserSalesComponent } from './user-sales/user-sales.component';
+import { AllSalesComponent } from './components/all-sales/all-sales.component';
+import { AuthGuard } from './guard/auth.guard';
+import { ConnexionComponent } from './components/connexion/connexion.component';
+import { EditProfilComponent } from './components/edit-profil/edit-profil.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { PostSaleComponent } from './components/post-sale/post-sale.component';
+import { RegisterComponent } from './components/register/register.component';
+import { UserSalesComponent } from './components/user-sales/user-sales.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },

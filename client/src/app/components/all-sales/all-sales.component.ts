@@ -1,10 +1,10 @@
 import { CreateDateColumn } from 'typeorm';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { map, Observable, switchMap, tap } from 'rxjs';
-import { Profil } from '../models/profil.model';
-import { Sale } from '../models/sale.model';
-import { ProfilService } from '../service/profil.service';
-import { SalesService } from '../service/sales.service';
+import { Profil } from '../../models/profil.model';
+import { Sale } from '../../models/sale.model';
+import { ProfilService } from '../../service/profil.service';
+import { SalesService } from '../../service/sales.service';
 
 @Component({
   selector: 'app-all-sales',
@@ -25,7 +25,7 @@ export class AllSalesComponent implements OnInit {
   ngOnInit(): void {
     this.profilService.getAllUsersProfil().pipe(
       map(profils => this.profils = profils),
-      map(profils => profils.forEach(profil => profil.sales.forEach(sale => this.sales.push(sale)))),
+      map(profils => profils.forEach(profil => profil.sales?.forEach(sale => this.sales.push(sale)))),
     ).subscribe();
   }
 

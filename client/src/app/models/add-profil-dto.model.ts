@@ -1,5 +1,3 @@
-import { Sale } from "./sale.model";
-
 export interface AddProfilDto {
   id: number;
   name: string;
@@ -8,5 +6,4 @@ export interface AddProfilDto {
   picture: string;
   birthday: Date;
   phone: number;
-  // level: Level;
 }

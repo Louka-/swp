@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ValidationErrors } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CurrentUser } from '../models/user.model';
 
 const API_LOGIN = 'http://localhost:3000/users';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  userProfile: BehaviorSubject<CurrentUser> = new BehaviorSubject<CurrentUser>({
+    id: 0,
+    email: '',
+    password: '',
+  });
 
   constructor(
     private http: HttpClient,
@@ -29,25 +34,26 @@ export class AuthService {
     return !!localStorage.getItem('jwt');
   }
 
-  getCurrentUserId(): number {
-    return Number(localStorage.getItem('userId'));
+  saveUserToLocalStorage(user: CurrentUser) {
+    this.userProfile.next(user);
+    localStorage.setItem('current-user', JSON.stringify(user));
   }
 
-  findUserByEmail(): Observable<ValidationErrors | null> {
-    return new Observable<ValidationErrors | null>(
-      (observer) => {
-        setTimeout(
-          () => {
-            const date = new Date();
-            if (date.getTime() % 2) {
-              observer.next(null);
-            } else {
-              observer.next({ userExists: true });
-            }
-          },
-          1500
-        );
+  loadUserFromLocalStorage(): CurrentUser {
+    if (this.userProfile.value.id == 0) {
+      let fromLocalStorage = localStorage.getItem('current-user');
+      if (fromLocalStorage) {
+        let userInfo = JSON.parse(fromLocalStorage);
+        this.userProfile.next(userInfo);
       }
-    );
+    }
+    return this.userProfile.value;
   }
+
+  refreshCookie() {
+    return this.http.get(`${API_LOGIN}/refresh-token`, {
+      withCredentials: true,
+    });
+  }
+
 }

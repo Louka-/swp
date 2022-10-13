@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CarouselImage } from '../carousel/carousel.component';
-import { Profil } from '../models/profil.model';
-import { Sale } from '../models/sale.model';
+import { Profil } from '../../models/profil.model';
+import { Sale } from '../../models/sale.model';
 
 @Component({
   selector: 'app-card-detail',

@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { map, Observable, switchMap } from 'rxjs';
-import { Sale } from '../models/sale.model';
-import { AuthService } from '../service/auth.service';
-import { SalesService } from '../service/sales.service';
-import { UserService } from '../service/user.service';
+import { map, Observable } from 'rxjs';
+import { Sale } from '../../models/sale.model';
+import { AuthService } from '../../service/auth.service';
+import { SalesService } from '../../service/sales.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostSaleComponent } from '../post-sale/post-sale.component';
 import { MatPaginator } from '@angular/material/paginator';
@@ -14,7 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./user-sales.component.sass']
 })
 export class UserSalesComponent implements OnInit, AfterViewInit {
-  user = this.userService.getUserById(this.auth.getCurrentUserId());
+  user = this.auth.loadUserFromLocalStorage();
   sales$?: Observable<Sale[]>;
   displayedColumns = [
     'title',
@@ -31,14 +30,11 @@ export class UserSalesComponent implements OnInit, AfterViewInit {
   constructor(
     private salesService: SalesService,
     public dialog: MatDialog,
-    private userService: UserService,
     private auth: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.sales$ = this.user.pipe(
-      switchMap(user => this.salesService.getAllSalesByUserId(user.profil.id)),
-    );
+    this.sales$ = this.salesService.getAllSalesByUserId(this.user.id);
   }
 
   ngAfterViewInit() {

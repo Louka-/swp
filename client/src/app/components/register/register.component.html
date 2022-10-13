@@ -11,6 +11,10 @@
       <mat-label>Mot de passe</mat-label>
       <input type="password" matInput ngModel password #passwordInput="ngModel" name="password">
     </mat-form-field> <br>
+    <mat-form-field class="width" appearance="fill">
+      <mat-label>Confirmer le mot de passe</mat-label>
+      <input type="password" matInput ngModel confirmPassword #confirmPasswordInput="ngModel" name="confirmPassword">
+    </mat-form-field> <br>
     <div class="button">
       <button mat-raised-button (click)="register(registerForm)">
         Inscription

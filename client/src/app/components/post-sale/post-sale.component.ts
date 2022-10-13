@@ -1,14 +1,14 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
-import { SalesService } from '../service/sales.service';
+import { SalesService } from '../../service/sales.service';
 import { Router } from '@angular/router';
-import { UserService } from '../service/user.service';
-import { AuthService } from '../service/auth.service';
+import { UserService } from '../../service/user.service';
+import { AuthService } from '../../service/auth.service';
 import { map, switchMap } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Sale } from '../models/sale.model';
+import { Sale } from '../../models/sale.model';
 import { UserSalesComponent } from '../user-sales/user-sales.component';
-import { FileUploadService } from '../service/file-upload.service';
+import { FileUploadService } from '../../service/file-upload.service';
 
 @Component({
   selector: 'app-post-sale',
@@ -86,7 +86,7 @@ export class PostSaleComponent implements OnInit {
         form.get('pictureThree')?.patchValue(res[2]?.filename);
       }),
     ).pipe(
-      map(() => this.userService.getUserById(this.auth.getCurrentUserId()).pipe(
+      map(() => this.userService.getUserById(this.auth.loadUserFromLocalStorage().id).pipe(
         switchMap(user => {
           const shipping = form.get('shipping')
           if (!shipping?.value) {

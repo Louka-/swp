@@ -1,12 +1,12 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { Profil } from '../models/profil.model';
-import { ProfilService } from '../service/profil.service';
-import { UserService } from '../service/user.service';
-import { AuthService } from '../service/auth.service';
+import { Profil } from '../../models/profil.model';
+import { ProfilService } from '../../service/profil.service';
+import { UserService } from '../../service/user.service';
+import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
-import { FileUploadService } from '../service/file-upload.service';
+import { FileUploadService } from '../../service/file-upload.service';
 
 @Component({
   selector: 'app-edit-profil',
@@ -14,8 +14,8 @@ import { FileUploadService } from '../service/file-upload.service';
   styleUrls: ['./edit-profil.component.sass'],
 })
 export class EditProfilComponent implements OnInit {
-  userId = this.auth.getCurrentUserId();
-  profil$: Observable<Profil> = this.userService.getUserById(this.userId).pipe(
+  user = this.auth.loadUserFromLocalStorage();
+  profil$: Observable<Profil> = this.userService.getUserById(this.user.id).pipe(
     map(user => user.profil),
     tap(profil => this.profilId = profil.id)
   );
@@ -26,7 +26,7 @@ export class EditProfilComponent implements OnInit {
   errors: boolean = false;
 
   profilForm = new FormGroup({
-    picture: new FormControl('', [Validators.required]),
+    picture: new FormControl(''),
     name: new FormControl('', [Validators.required]),
     description: new FormControl(),
     phone: new FormControl('', [Validators.required]),
@@ -91,7 +91,8 @@ export class EditProfilComponent implements OnInit {
   }
 
   validate(form: FormGroup) {
-    if (this.profilForm.invalid) {
+    if (form.invalid) {
+      console.log(form)
       this.errors = true;
       return;
     }
