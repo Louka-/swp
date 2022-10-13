@@ -1,7 +1,13 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { UserSubscribeDto } from 'src/dtos/user-subscribe.dto';
-import { LoginCredentialsDto } from '../dtos/login-credentials.dto';
+import {
+  Body, Controller, Get, Param, Req,
+  Res, ParseIntPipe, Post, UseGuards
+} from '@nestjs/common';
 import { UsersService } from '../services/users.service';
+import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
+import { User } from 'src/entities/user.entity';
+import { RegistrationReqModel } from 'src/dtos/registration.req.model';
+
 
 @Controller('users')
 export class UsersController {
@@ -21,9 +27,9 @@ export class UsersController {
 
   @Post('register')
   register(
-    @Body() userData: UserSubscribeDto
+    @Body() userData: RegistrationReqModel
   ) {
-    return this.userService.register(userData);
+    return this.userService.registerUser(userData);
   }
 
   @Post('delete/:id')
@@ -34,11 +40,44 @@ export class UsersController {
   }
 
   @Post('login')
-  login(
-    @Body() credentials: LoginCredentialsDto
-  ) {
-    return this.userService.login(credentials);
+  @UseGuards(AuthGuard('local'))
+  async login(@Req() req, @Res({ passthrough: true }) res: Response) {
+    const token = await this.userService.getJwtToken(req.user as User);
+    const refreshToken = await this.userService.getRefreshToken(
+      req.user.id,
+    );
+    const secretData = {
+      token,
+      refreshToken,
+    };
+
+    res.cookie('auth-cookie', secretData, {
+      httpOnly: false,
+    });
+    console.log(secretData)
+    return { msg: 'success', user: req.user };
   }
+
+  @Get('refresh-tokens')
+  @UseGuards(AuthGuard('refresh'))
+  async regenerateTokens(
+    @Req() req,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const token = await this.userService.getJwtToken(req.user as User);
+    const refreshToken = await this.userService.getRefreshToken(
+      req.user.id,
+    );
+    const secretData = {
+      token,
+      refreshToken,
+    };
+
+    res.cookie('auth-cookie', secretData, { httpOnly: true });
+    return { msg: 'success' };
+  }
+
+}
 
 
   //TODO
@@ -53,4 +92,4 @@ export class UsersController {
   // editEmail() {
 
   // }
-}
+
