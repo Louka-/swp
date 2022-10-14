@@ -1,11 +1,8 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ProfilModule } from './modules/profil.module';
 import { UsersModule } from './modules/users.module';
-import { LevelModule } from './modules/level.module';
 import { SaleModule } from './modules/sale.module';
 import * as dotenv from 'dotenv';
 import { MulterModule } from '@nestjs/platform-express';
@@ -32,14 +29,13 @@ dotenv.config();
     }),
     UsersModule,
     ProfilModule,
-    LevelModule,
     SaleModule,
     MulterModule.register({
       dest: './files',
     })
   ],
-  controllers: [AppController, PhotosController],
-  providers: [AppService],
-  exports: [AppService]
+  controllers: [PhotosController],
+  providers: [],
+  exports: []
 })
 export class AppModule { }

@@ -1,5 +1,4 @@
 import { IsBoolean, isBoolean, IsDate, isNotEmpty, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
-import { Level } from "src/entities/level.entity";
 import { Profil } from "src/entities/profil.entity";
 
 export class AddSaleDto {

@@ -43,22 +43,22 @@ export class UsersService {
     regModel: RegistrationReqModel,
   ): Promise<string> {
     if (!regModel.email) {
-      return "Email can't be empty";
+      return "L'email ne peut être vide";
     }
 
     const emailRule =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!emailRule.test(regModel.email.toLowerCase())) {
-      return 'Invalid email';
+      return "L'email n'est pas valide";
     }
 
     const user = await this.usersRepository.findOne({ email: regModel.email });
     if (user != null && user.email) {
-      return 'Email already exist';
+      return "Un compte possédant cet email éxiste déjà";
     }
 
     if (regModel.password !== regModel.confirmPassword) {
-      return 'Confirm password not matching';
+      return 'Le mot de passe de confirmation ne correspond pas';
     }
     return '';
   }

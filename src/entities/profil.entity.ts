@@ -1,6 +1,5 @@
 import { User } from './user.entity';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Level } from './level.entity';
 import { Timestamp } from 'src/generics/timestamp.entity';
 import { Sale } from './sale.entity';
 
@@ -42,9 +41,5 @@ export class Profil extends Timestamp {
       eager: true,
     })
   sales: Sale[];
-
-  @OneToOne(() => Level)
-  @JoinColumn()
-  level: Level;
 
 }
