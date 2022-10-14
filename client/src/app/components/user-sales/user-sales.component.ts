@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { Sale } from '../../models/sale.model';
 import { AuthService } from '../../service/auth.service';
 import { SalesService } from '../../service/sales.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostSaleComponent } from '../post-sale/post-sale.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-user-sales',
@@ -13,7 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./user-sales.component.sass']
 })
 export class UserSalesComponent implements OnInit, AfterViewInit {
-  user = this.auth.loadUserFromLocalStorage();
+  user$ = this.userService.getUserById(this.auth.loadUserFromLocalStorage().id);
   sales$?: Observable<Sale[]>;
   displayedColumns = [
     'title',
@@ -30,11 +31,14 @@ export class UserSalesComponent implements OnInit, AfterViewInit {
   constructor(
     private salesService: SalesService,
     public dialog: MatDialog,
+    private userService: UserService,
     private auth: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.sales$ = this.salesService.getAllSalesByUserId(this.user.id);
+    this.sales$ = this.user$.pipe(
+      switchMap(user => this.salesService.getAllSalesByUserId(user.profil.id)),
+    );
   }
 
   ngAfterViewInit() {
