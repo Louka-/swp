@@ -103,9 +103,10 @@ export class UsersService {
     newUser.profil = emptyProfil;
     newUser.createdAt = today
 
-    await this.usersRepository.insert(newUser);
+    const createdUser = await this.usersRepository.insert(newUser);
+    result.user = createdUser.generatedMaps[0] as User;
     result.successStatus = true;
-    result.message = 'success';
+    result.message = 'Bienvenue sur SWP!';
     return result;
   }
 
@@ -141,7 +142,7 @@ export class UsersService {
   public async getRefreshToken(userId: number): Promise<string> {
     const userDataToUpdate = {
       refreshToken: randomToken.generate(16),
-      refreshTokenExp: DateTime.now().set({ days: 14 }).toFormat('YYYY/MM/DD'),
+      refreshTokenExp: DateTime.now().plus({ days: 14 }).toISODate(),
     };
 
     await this.usersRepository.update(userId, userDataToUpdate);
@@ -152,7 +153,7 @@ export class UsersService {
     email: string,
     refreshToken: string,
   ): Promise<User> {
-    const currentDate = DateTime.now().set({ days: 14 }).toFormat('YYYY/MM/DD');
+    const currentDate = DateTime.now().plus({ days: 14 }).toISODate();
     let user = await this.usersRepository.findOne({
       where: {
         email: email,
