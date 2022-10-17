@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PostSaleComponent } from '../post-sale/post-sale.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { UserService } from '../../service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-sales',
@@ -32,6 +33,7 @@ export class UserSalesComponent implements OnInit, AfterViewInit {
     private salesService: SalesService,
     public dialog: MatDialog,
     private userService: UserService,
+    private router: Router,
     private auth: AuthService
   ) { }
 
@@ -88,6 +90,10 @@ export class UserSalesComponent implements OnInit, AfterViewInit {
     }).afterClosed().pipe(
       map(() => this.ngOnInit()),
     ).subscribe();
+  }
+
+  redirect() {
+    this.router.navigate(['all-sales']);
   }
 
 }
