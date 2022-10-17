@@ -122,4 +122,8 @@ export class PostSaleComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  redirect() {
+    this.router.navigate(['all-sales']);
+  }
+
 }

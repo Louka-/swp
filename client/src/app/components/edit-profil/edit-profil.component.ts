@@ -111,4 +111,8 @@ export class EditProfilComponent implements OnInit {
     }
   }
 
+  redirect() {
+    this.router.navigate(['all-sales']);
+  }
+
 }
