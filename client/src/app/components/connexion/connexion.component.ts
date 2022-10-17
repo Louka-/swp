@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from '../../service/auth.service';
@@ -17,15 +18,17 @@ export class ConnexionComponent {
 
   constructor(
     private auth: AuthService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
   login(loginForm: NgForm) {
     this.auth.login(loginForm.value).pipe(
       map((reponse) => {
-        localStorage.setItem('jwt', reponse.cookie?.secretData.token);
+        // console.log(reponse.cookie)
         this.auth.saveUserToLocalStorage(reponse.user)
         this.router.navigate(['/all-sales']);
+        this.snackBar.open('Bienvenu sur SWP!', 'Ok');
       }),
     ).subscribe();
   }

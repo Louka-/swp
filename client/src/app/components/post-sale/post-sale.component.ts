@@ -9,6 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Sale } from '../../models/sale.model';
 import { UserSalesComponent } from '../user-sales/user-sales.component';
 import { FileUploadService } from '../../service/file-upload.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post-sale',
@@ -43,6 +44,7 @@ export class PostSaleComponent implements OnInit {
     private saleService: SalesService,
     private userService: UserService,
     private auth: AuthService,
+    private snackBar: MatSnackBar,
     private router: Router,
     private uploadService: FileUploadService,
     private dialogRef: MatDialogRef<UserSalesComponent>,
@@ -96,7 +98,10 @@ export class PostSaleComponent implements OnInit {
         })
       ).subscribe()),
     ).pipe(
-      map(() => this.router.navigate(['all-sales']))
+      map(() => {
+        this.router.navigate(['all-sales']);
+        this.snackBar.open('Votre annonce est en ligne.', 'Ok');
+      })
     ).subscribe()
   }
 

@@ -23,6 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditProfilComponent } from './components/edit-profil/edit-profil.component';
@@ -84,6 +85,7 @@ registerLocaleData(localeFr, 'fr')
     MatPaginatorModule,
     MatTableModule,
     MatMenuModule,
+    MatSnackBarModule,
     MatDialogModule,
     ReactiveFormsModule,
     MatDialogModule,
