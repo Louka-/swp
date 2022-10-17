@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
@@ -45,6 +46,7 @@ export class EditProfilComponent implements OnInit {
     private profilService: ProfilService,
     private userService: UserService,
     private router: Router,
+    private snackBar: MatSnackBar,
     private auth: AuthService,
     private uploadService: FileUploadService,
   ) { }
@@ -97,7 +99,10 @@ export class EditProfilComponent implements OnInit {
     }
     if (!this.currentFile) {
       this.profilService.saveNewProfil(this.profilId, form.value).pipe(
-        map(() => this.router.navigate(['all-sales']))).subscribe()
+        map(() => {
+          this.router.navigate(['all-sales']);
+          this.snackBar.open('Profil modifié avec succés', 'Ok')
+        })).subscribe()
     } else {
       this.uploadService.upload(this.currentFile).pipe(
         map(res => {
