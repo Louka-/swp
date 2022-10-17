@@ -27,7 +27,7 @@ export class UsersController {
 
   @Post('register')
   register(
-    @Body() userData: RegistrationReqModel
+    @Body() userData: RegistrationReqModel,
   ) {
     return this.userService.registerUser(userData);
   }
@@ -42,7 +42,7 @@ export class UsersController {
   @Post('login')
   @UseGuards(AuthGuard('local'))
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
-    const token = await this.userService.getJwtToken(req.user as User);
+    const token = await this.userService.getJwtToken(req.user);
     const refreshToken = await this.userService.getRefreshToken(
       req.user.id,
     );
@@ -51,19 +51,21 @@ export class UsersController {
       refreshToken,
     };
 
-    res.cookie('auth-cookie', secretData, {
-      httpOnly: false,
-    });
-    return { msg: 'success', user: req.user };
+    res.cookie('auth-cookie', secretData.token);
+    console.log(res.get('auth-cookies'))
+    res.send({
+      success: true,
+      user: req.user
+    })
   }
 
-  @Get('refresh-tokens')
+  @Get('refresh-token')
   @UseGuards(AuthGuard('refresh'))
   async regenerateTokens(
     @Req() req,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const token = await this.userService.getJwtToken(req.user as User);
+    const token = await this.userService.getJwtToken(req.user);
     const refreshToken = await this.userService.getRefreshToken(
       req.user.id,
     );
