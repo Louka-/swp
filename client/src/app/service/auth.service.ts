@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CurrentUser } from '../models/user.model';
 
@@ -19,11 +19,11 @@ export class AuthService {
   ) { }
 
   login(credentials: any): Observable<any> {
-    return this.http.post(`${API_LOGIN}/login`, credentials);
+    return this.http.post(`${API_LOGIN}/login`, credentials, { withCredentials: true });
   }
 
   logout() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('current-user');
   }
 
   register(credentials: any): Observable<any> {
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   isAutheticated() {
-    return !!localStorage.getItem('jwt');
+    return !!localStorage.getItem('current-user');
   }
 
   saveUserToLocalStorage(user: CurrentUser) {
