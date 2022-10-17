@@ -1,5 +1,5 @@
 <div class="button">
-  <button mat-raised-button (click)="toggleDetail()">{{!showDetail ? 'Plus d\'information' : 'Réduire'}}</button>
+  <button mat-raised-button (click)="toggleDetail()">{{!showDetail ? 'Plus d\'informations' : 'Réduire'}}</button>
 </div>
 <div *ngIf="showDetail" class="pt-20">
   <app-carousel [images]="images"></app-carousel>
